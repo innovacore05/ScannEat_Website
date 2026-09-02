@@ -33,3 +33,19 @@
 	--color-neutral-900: #1f1f1f;
 	--color-neutral-950: #000000;
 }
+
+/* pega el footer al final y no se mueve */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}

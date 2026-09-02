@@ -2,7 +2,8 @@
 const appUrl = import.meta.env.PUBLIC_APP_URL;
 ---
 
-<header class="w-full  bg-brand-mint-dark "> <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+<header class="w-full  bg-brand-mint-dark "> 
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
 <!-- Logo -->
 <img
@@ -13,58 +14,113 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
 
 <!-- barra de navegacion opciones -->
 <nav class="hidden items-center gap-8 md:flex">
-  <a
-    href="#inicio"
-    class="font-medium text-white transition hover:text-teal-100"
-  >
-    Inicio
-  </a>
-
-  <a
-    href="#nosotros"
-    class="font-medium text-white transition hover:text-teal-100"
-  >
-    Nosotros
-  </a>
-
-  <a
-    href="#funcionalidades"
-    class="font-medium text-white transition hover:text-teal-100"
-  >
-    Funcionalidades
-  </a>
-
-  <a
-    href="#planes"
-    class="font-medium text-white transition hover:text-teal-100"
-  >
-    Planes
-  </a>
-
-  <a
-    href="#contacto"
-    class="font-medium text-white transition hover:text-teal-100"
-  >
-    Contacto
-  </a>
-</nav>
+      <a href="#inicio" class="font-medium text-white transition hover:text-teal-100">Inicio</a>
+      <a href="#nosotros" class="font-medium text-white transition hover:text-teal-100">Nosotros</a>
+      <a href="#funcionalidades" class="font-medium text-white transition hover:text-teal-100">Funcionalidades</a>
+      <a href="#contacto" class="font-medium text-white transition hover:text-teal-100">Contacto</a>
+    </nav>
 
 <!-- registro e inicio de sesion -->
-<div class="flex items-center gap-3">
+<div class="hidden items-center gap-3 md:flex">
   <a
     href={`${appUrl}/register`}
-    class="rounded-lg border-2 border-white px-4 py-2 font-semibold text-white transition hover:bg-white hover:text-teal-500"
+    class="rounded-md border border-white px-4 py-1 font-semibold text-white transition hover:bg-white hover:text-brand-mint-dark"
   >
     Registrarse
   </a>
 
   <a
     href={`${appUrl}/login`}
-    class="rounded-lg bg-white px-4 py-2 font-semibold text-teal-500 transition hover:bg-teal-50"
+    class="rounded-md bg-white px-4 py-1.5 font-semibold text-brand-mint-dark transition hover:bg-teal-50"
   >
     Iniciar sesión
   </a>
 </div>
 
-</div> 
+   <!-- menu celular -->
+   <button
+  id="menu-toggle"
+  class="relative z-50 md:hidden text-white"
+  aria-label="Abrir menú"
+  aria-expanded="false"
+>
+      <svg id="icon-open" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="icon-close" class="hidden h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- menu movil desplegable -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 top-0 z-40 hidden h-screen w-full -translate-y-4 flex-col items-center justify-center gap-8 bg-brand-mint-dark px-6 opacity-0 transition-all duration-300 ease-out md:hidden" >
+    <a href="#inicio" class="text-2xl font-medium text-white">Inicio</a>
+    <a href="#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
+    <a href="#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
+    <a href="#contacto" class="text-2xl font-medium text-white">Contacto</a>
+
+    <div class="flex w-full max-w-xs flex-col gap-3 pt-4">
+      <a href={`${appUrl}/register`} class="rounded-lg border-2 border-white px-4 py-3 text-center font-semibold text-white">
+        Registrarse
+      </a>
+
+    
+      <a href={`${appUrl}/login`} class="rounded-lg bg-white px-4 py-3 text-center font-semibold text-brand-mint-dark">
+        Iniciar sesión
+      </a>
+   
+    </div>
+  </div>
 </header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
+
+const openMenu = () => {
+  menu?.classList.remove("hidden");
+  menu?.classList.add("flex");
+  void menu?.offsetHeight;
+  menu?.classList.remove("opacity-0", "-translate-y-4");
+
+  iconOpen?.classList.add("hidden");
+  iconClose?.classList.remove("hidden");
+  toggle?.setAttribute("aria-expanded", "true");
+  document.body.classList.add("overflow-hidden");
+};
+
+const closeMenu = () => {
+  menu?.classList.add("opacity-0", "-translate-y-4");
+
+  iconOpen?.classList.remove("hidden");
+  iconClose?.classList.add("hidden");
+  toggle?.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("overflow-hidden");
+
+  menu?.addEventListener(
+    "transitionend",
+    () => {
+      if (menu?.classList.contains("opacity-0")) {
+        menu?.classList.add("hidden");
+        menu?.classList.remove("flex");
+      }
+    },
+    { once: true }
+  );
+};
+
+toggle?.addEventListener("click", () => {
+  const isOpen = !menu?.classList.contains("hidden");
+  if (isOpen) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+});
+
+</script>

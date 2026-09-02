@@ -1,25 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
 import Features from "../components/Features.astro";
 import About from "../components/About.astro";
 import Footer from "../components/Footer.astro";
+import Contact from "../components/Contact.astro";
 ---
 
-<Layout title="Scan n' Eat">
+<Layout
+  title="Scan n' Eat"
+  description="ScanEat es la plataforma de menú QR con sugerencias de pedidos por IA e integración de punto de venta para restaurantes en Costa Rica."
+  noindex={true}
+>
+  <Navbar />
 
-    <Navbar />
+  <main>
+    <Hero />
+    <!-- <Features />
+    <About />
+    <Contact/> -->
+  </main>
 
-    <main>
-
-        <!-- <Hero />
-        <Features />
-        <About /> -->
-
-    </main>
-
-    <!-- <Footer /> -->
-
+  <Footer />
 </Layout>
