@@ -1,16 +1,29 @@
+---
+import HeroVideo from "./HeroVideo.astro";
+---
+
+
+
+
 <section id="inicio" class="hero">
-    
-    <div class="hero-content not-visited:">
-        <h1 class="flex flex-col items-center px-20 text-center text-6xl font-bold text-brand-mint-dark mt-20 mb-5">
-  <span>Fácil para vos</span>
-  <span class="text-gray-500">simple para tus clientes</span>
+    <div class="hero-content flex flex-col items-center w-full px-4 sm:px-6 lg:px-20">
+        
+<h1 class="flex flex-col items-center text-center font-bold text-brand-mint-dark mt-12 sm:mt-16 lg:mt-20 mb-4 sm:mb-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+ 
+            <span class="opacity-0 animate-fade-in-up [animation-delay:0.1s]">Fácil para vos</span>
+  
+            <span class="text-gray-500 opacity-0 animate-fade-in-up [animation-delay:0.3s]">simple para tus clientes</span>
 </h1>
 
-        <p class="flex flex-col items-center px-20 text-center font-medium text-gray-600 mb-15">
-            Gestiona tu restaurante de una manera
-            sencilla y eficiente
-        </p>
+        <p class="text-center font-medium text-gray-600 mb-8 sm:mb-10 lg:mb-15 text-base sm:text-lg max-w-md sm:max-w-lg lg:max-w-xl opacity-0 animate-fade-in-up [animation-delay:0.5s]">
+    Gestiona tu restaurante de una manera
+    sencilla y eficiente
+</p>
 
-       
+        <div class="w-full max-w-3xl mx-auto">
+            <HeroVideo />
+        </div>
     </div>
 </section>
+       
+  
