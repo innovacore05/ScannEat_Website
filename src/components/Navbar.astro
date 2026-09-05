@@ -2,21 +2,25 @@
 const appUrl = import.meta.env.PUBLIC_APP_URL;
 ---
 
-<header class="w-full  bg-brand-mint-dark "> 
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+<header
+  id="navbar"
+  class="fixed top-0 left-0 z-50 w-full translate-y-0 bg-brand-mint-dark shadow-xs transition-transform duration-300"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
 
 <!-- Logo -->
 <img
   src="/logoscaneat.svg"
   alt="Scan n' Eat"
-  class="h-10 w-auto"
+  class="h-8 w-auto"
 />
 
 <!-- barra de navegacion opciones -->
 <nav class="hidden items-center gap-8 md:flex">
       <a href="#inicio" class="font-medium text-white transition hover:text-teal-100">Inicio</a>
-      <a href="#nosotros" class="font-medium text-white transition hover:text-teal-100">Nosotros</a>
       <a href="#funcionalidades" class="font-medium text-white transition hover:text-teal-100">Funcionalidades</a>
+      <a href="#nosotros" class="font-medium text-white transition hover:text-teal-100">Nosotros</a>
+      
       <a href="#contacto" class="font-medium text-white transition hover:text-teal-100">Contacto</a>
     </nav>
 
@@ -58,15 +62,15 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
     id="mobile-menu"
     class="fixed inset-0 top-0 z-40 hidden h-screen w-full -translate-y-4 flex-col items-center justify-center gap-8 bg-brand-mint-dark px-6 opacity-0 transition-all duration-300 ease-out md:hidden" >
     <a href="#inicio" class="text-2xl font-medium text-white">Inicio</a>
-    <a href="#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
     <a href="#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
+    <a href="#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
+    
     <a href="#contacto" class="text-2xl font-medium text-white">Contacto</a>
 
     <div class="flex w-full max-w-xs flex-col gap-3 pt-4">
       <a href={`${appUrl}/register`} class="rounded-lg border-2 border-white px-4 py-3 text-center font-semibold text-white">
         Registrarse
       </a>
-
     
       <a href={`${appUrl}/login`} class="rounded-lg bg-white px-4 py-3 text-center font-semibold text-brand-mint-dark">
         Iniciar sesión
@@ -77,33 +81,65 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
 </header>
 
 <script>
-  const toggle = document.getElementById("menu-toggle") as HTMLButtonElement | null;
-  const menu = document.getElementById("mobile-menu") as HTMLDivElement | null;
-  const iconOpen = document.getElementById("icon-open") as SVGElement | null;
-  const iconClose = document.getElementById("icon-close") as SVGElement | null;
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
+  const navbar = document.getElementById("navbar");
 
-  const setMenu = (open: boolean): void => {
+
+  const setMenu = (open: boolean) => {
     iconOpen?.classList.toggle("hidden", open);
     iconClose?.classList.toggle("hidden", !open);
     toggle?.setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("overflow-hidden", open);
 
     if (open) {
-      menu?.classList.remove("hidden");
-      menu?.classList.add("flex");
+      menu?.classList.replace("hidden", "flex");
       void menu?.offsetHeight;
       menu?.classList.remove("opacity-0", "-translate-y-4");
     } else {
       menu?.classList.add("opacity-0", "-translate-y-4");
       menu?.addEventListener(
         "transitionend",
-        () => menu?.classList.contains("opacity-0") && menu.classList.add("hidden", "flex".replace("flex", "")) ,
+        () => menu?.classList.replace("flex", "hidden"),
         { once: true }
       );
     }
   };
 
-  toggle?.addEventListener("click", () =>
-    setMenu(menu?.classList.contains("hidden") ?? false)
-  );
+  toggle?.addEventListener("click", () => setMenu(menu?.classList.contains("hidden") ?? false));
+
+
+  const replayAnimation = (href: string | null) => {
+  if (!href) return;
+
+  const target = document.querySelector<HTMLElement>(href);
+  if (!target) return;
+
+  const animated = target.classList.contains("animate-fade-in-up")
+    ? [target, ...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")]
+    : [...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")];
+
+  animated.forEach((el) => {
+    el.classList.remove("animate-fade-in-up");
+    void el.offsetWidth;
+    el.classList.add("animate-fade-in-up");
+  });
+};
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      setMenu(false);
+      replayAnimation(link.getAttribute("href"));
+    });
+  });
+
+  let lastY = window.scrollY;
+
+window.addEventListener("scroll", () => {
+  const y = window.scrollY;
+  navbar?.classList.toggle("-translate-y-full", y > lastY && y > 100);
+  lastY = y;
+}, { passive: true });
 </script>

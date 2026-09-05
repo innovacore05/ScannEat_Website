@@ -1,30 +1,51 @@
-<section id="funcionalidades" class="features">
-    <div class="container">
+---
+import { QrCode, Sparkles, Receipt, LayoutDashboard } from 'lucide-astro';
 
-        <div class="section-header font-bold">
-            <span>Funcionalidades</span>
-        </div>
 
-        <div class="features-grid ">
+type FeatureCard = {
+  icon: typeof QrCode;
+  title: string;
+  description: string;
+};
 
-            <article class="feature-card">
-                <h3>
-                    Gestión sencilla
-                </h3>
-            </article>
+const features: FeatureCard[] = [
+  {
+    icon: QrCode,
+    title: "Pedidos directo desde la mesa",
+    description:
+      "El cliente escanea el QR, ve el menú y confirma su pedido, sin esperar a que un mesero lo atienda.",
+  },
+  {
+    icon: Sparkles,
+    title: "Recomendaciones con IA",
+    description: "Un chatbot sugiere platillos según el presupuesto y el tipo de comida que el cliente busca.",
+  },
+  {
+    icon: Receipt,
+    title: "Facturación integrada",
+    description: "Generá la factura del pedido directamente desde el sistema, sin procesos manuales aparte.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "Panel de administración inteligente",
+    description: "Consultá reportes, identificá tus platillos más vendidos y mejor calificados, y recibí insights automáticos para tomar mejores decisiones, todo desde un solo lugar.",
+  },
+];
+---
 
-            <article class="feature-card">
-                <h3>
-                    Organización
-                </h3>
-            </article>
+<section id="funcionalidades" aria-labelledby="features-heading" class="mx-auto max-w-7xl px-6 py-16 text-center animate-fade-in-up scroll-mt-16">
+  <div>
+    <h2 id="features-heading" class="text-3xl font-bold">Funcionalidades</h2>
+    <p class="mt-2 text-gray-600">Todo lo que necesitas para agilizar tu negocio</p>
+  </div>
 
-            <article class="feature-card">
-                <h3>
-                    Control
-                </h3>
-            </article>
-
-        </div>
-    </div>
+  <div class="mt-12 grid grid-cols-1 divide-y divide-gray-200 border border-gray-200 sm:grid-cols-2 sm:divide-x lg:grid-cols-4">
+    {features.map(({ icon: Icon, title, description }) => (
+      <article class="flex flex-col items-center gap-3 p-8 transition-colors duration-300 hover:bg-brand-mint hover:text-white">
+        <Icon aria-hidden="true" class="h-8 w-8 text-brand-mint-darker" />
+        <h3 class="font-semibold">{title}</h3>
+        <p class="text-sm text-gray-600 ">{description}</p>
+      </article>
+    ))}
+  </div>
 </section>

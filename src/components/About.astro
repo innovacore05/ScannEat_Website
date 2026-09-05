@@ -1,11 +1,71 @@
-<section id="nosotros" class="about">
-    <div class="container">
+---
+// AboutUs Component
+export interface Props {}
+const {} = Astro.props;
+
+const team = [
+  { name: "Brittany Garcia", role: "Estudiante de ITM" },
+  { name: "Alisson Gomez", role: "Estudiante de ITM" },
+  { name: "Johan Brenes", role: "Estudiante de ITM" },
+  { name: "Franciny Bonilla", role: "Estudiante de ITM" },
+  { name: "Laura Arroyo", role: "Estudiante de ITM" },
+];
 
 
-        <div class="about-content">
-         
-        <h3 class="font-bold">Sobre nosotros</h3>
+const getInitials = (name: string) =>
+  name.split(" ").map((word) => word[0]).join("").slice(0, 2).toUpperCase();
+---
 
-        </div>
+<section
+  id="nosotros"
+  class="bg-white py-16 sm:py-24"
+  aria-labelledby="about-heading"
+>
+ <div class="mx-auto mb-16 max-w-3xl text-center animate-fade-in-up">
+
+    <div class="mx-auto max-w-3xl text-center mb-16">
+      <span class="text-lg font-semibold text-brand-mint-dark">Nuestra Historia</span>
+      <h2 id="about-heading" class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Creado por estudiantes, pensado para negocios reales
+      </h2>
+      <p class="mt-4 text-lg text-gray-600">
+        Somos InnovaCore, un equipo de estudiantes que desarrolló Scan n' Eat para resolver un problema real de restaurantes y cafeterías
+      </p>
     </div>
+
+    <div class="mt-24">
+      <div class="mx-auto max-w-3xl text-center mb-12">
+        <h3 class="text-2xl font-bold text-gray-900">Nuestro Equipo</h3>
+        <p class="mt-4 text-lg text-gray-600">
+          5 estudiantes de Informática y Tecnología Multimedia, Sede del Pacífico
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-12">
+        {team.map(({ name, role }) => (
+          <div class="flex flex-col items-center text-center w-64">
+            <div class="flex h-40 w-40 items-center justify-center rounded-full bg-brand-mint-dark text-4xl font-bold text-white">
+              {getInitials(name)}
+            </div>
+            <h4 class="mt-4 text-lg font-medium text-gray-900">{name}</h4>
+            <p class="text-base text-gray-600">{role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <div class="mt-8">
+       <a
+  href="mailto:innovacore05@gmail.com"
+  class="inline-flex items-center justify-center rounded-md border border-transparent bg-brand-mint-dark px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-brand-mint-darker"
+  aria-label="Enviar correo a InnovaCore"
+>
+  Contactá a nuestro equipo
+</a>
+        <p class="mt-3 text-sm text-gray-500">Conversemos sobre cómo Scan Eat puede ayudar a tu negocio</p>
+      </div>
+    </div>
+
+  </div>
 </section>
