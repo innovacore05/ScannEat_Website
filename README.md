@@ -60,7 +60,13 @@ All commands run from the project root, in a terminal:
 Create a `.env` file at the root with:
 
 ```env
-PUBLIC_APP_URL= https://scaneat-frontend-produccion-production.up.railway.app
+PUBLIC_APP_URL=https://scaneat-frontend-produccion-production.up.railway.app
+
+PUBLIC_URL_FACEBOOK=https://www.facebook.com/profile.php?id=61594125042423
+PUBLIC_URL_INSTAGRAM=https://www.instagram.com/innovacore.cr/
+PUBLIC_URL_TIKTOK=https://www.tiktok.com/@innovacorecr?_r=1&_t=ZS-99lbL67KDw5
+
+PUBLIC_CONTACT_EMAIL=innovacore05@gmail.com
 ```
 
 Used in the Navbar to build the `Registrarse` / `Iniciar sesión` links pointing to the React SPA.

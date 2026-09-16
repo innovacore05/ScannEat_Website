@@ -17,11 +17,11 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
 
 <!-- barra de navegacion opciones -->
 <nav class="hidden items-center gap-8 md:flex">
-      <a href="#inicio" class="font-medium text-white transition hover:text-teal-100">Inicio</a>
-      <a href="#funcionalidades" class="font-medium text-white transition hover:text-teal-100">Funcionalidades</a>
-      <a href="#nosotros" class="font-medium text-white transition hover:text-teal-100">Nosotros</a>
+      <a href="/#inicio" class="font-medium text-white transition hover:text-teal-100">Inicio</a>
+      <a href="/product#funcionalidades" class="font-medium text-white transition hover:text-teal-100">Funcionalidades</a>
+      <a href="/aboutUs#nosotros" class="font-medium text-white transition hover:text-teal-100">Nosotros</a>
       
-      <a href="#contacto" class="font-medium text-white transition hover:text-teal-100">Contacto</a>
+      <!-- <a href="#contacto" class="font-medium text-white transition hover:text-teal-100">Contacto</a> -->
     </nav>
 
 <!-- registro e inicio de sesion -->
@@ -61,11 +61,11 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
   <div
     id="mobile-menu"
     class="fixed inset-0 top-0 z-40 hidden h-screen w-full -translate-y-4 flex-col items-center justify-center gap-8 bg-brand-mint-dark px-6 opacity-0 transition-all duration-300 ease-out md:hidden" >
-    <a href="#inicio" class="text-2xl font-medium text-white">Inicio</a>
-    <a href="#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
-    <a href="#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
-    
-    <a href="#contacto" class="text-2xl font-medium text-white">Contacto</a>
+    <a href="/#inicio" class="text-2xl font-medium text-white">Inicio</a>
+    <a href="/product#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
+    <a href="/aboutUs#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
+<!--     
+    <a href="#contacto" class="text-2xl font-medium text-white">Contacto</a> -->
 
     <div class="flex w-full max-w-xs flex-col gap-3 pt-4">
       <a href={`${appUrl}/register`} class="rounded-lg border-2 border-white px-4 py-3 text-center font-semibold text-white">

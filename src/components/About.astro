@@ -1,71 +1,145 @@
 ---
-// AboutUs Component
 export interface Props {}
+
 const {} = Astro.props;
 
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+
 const team = [
-  { name: "Brittany Garcia", role: "Estudiante de ITM" },
-  { name: "Alisson Gomez", role: "Estudiante de ITM" },
-  { name: "Johan Brenes", role: "Estudiante de ITM" },
-  { name: "Franciny Bonilla", role: "Estudiante de ITM" },
-  { name: "Laura Arroyo", role: "Estudiante de ITM" },
+  { name: "Brittany Garcia", role: "BACKEND DEVELOPER" },
+  { name: "Alisson Gomez", role: "CEO & PRODUCT LEAD" },
+  { name: "Johan Brenes", role: "QA ENGINEER" },
+  { name: "Franciny Bonilla", role: "FRONTEND DEVELOPER" },
+  { name: "Laura Arroyo", role: "SOFTWARE ARCHITECT" },
 ];
 
-
 const getInitials = (name: string) =>
-  name.split(" ").map((word) => word[0]).join("").slice(0, 2).toUpperCase();
+  name
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 ---
 
+<!-- SOBRE INNOVACORE -->
 <section
-  id="nosotros"
+  id="innovacore"
   class="bg-white py-16 sm:py-24"
+  aria-labelledby="innovacore-heading"
+>
+  <div
+    class="mx-auto grid max-w-5xl items-center gap-10 px-6 lg:grid-cols-[1fr_1fr]"
+  >
+    <!-- Parrafo -->
+    <div class="animate-fade-in-up">
+      <img
+        src="/logo-innovacore-black.svg"
+        alt="Innovacore"
+        class="mb-8 h-10 w-auto"
+      />
+
+      <span class="text-lg font-semibold text-brand-mint-dark">
+        Sobre Innovacore
+      </span>
+
+      <h2
+        id="innovacore-heading"
+        class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+      >
+        Creamos soluciones digitales con propósito.
+      </h2>
+
+      <p class="mt-6 text-lg leading-8 text-gray-600">
+        Somos un equipo enfocado en desarrollar soluciones tecnológicas para
+        necesidades reales, combinando creatividad, innovación y tecnología para
+        crear experiencias útiles y funcionales. En Innovacore creemos que la
+        tecnología debe facilitar procesos, mejorar experiencias y aportar valor
+        a las personas y los negocios. Por eso, transformamos ideas y
+        necesidades en proyectos digitales prácticos, accesibles y adaptados a
+        diferentes contextos. Nuestro objetivo es conectar la tecnología con las
+        necesidades del mundo real, creando soluciones que generen un impacto
+        positivo.
+      </p>
+
+      <a
+        href={`mailto:${contactEmail}`}
+        class="mt-8 inline-flex items-center justify-center rounded-xl bg-brand-mint-dark px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-brand-mint-darker"
+        aria-label="Enviar correo a Innovacore"
+      >
+        Contactanos
+      </a>
+    </div>
+
+    <!-- Mascota 3D -->
+    <div class="flex w-full justify-center lg:justify-end">
+      <div class="w-full lg:w-125">
+        <model-viewer
+          src="/innovacorecori.glb"
+          alt="Mascota 3D de Innovacore"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          environment-image="neutral"
+          tone-mapping="neutral"
+          camera-orbit="-30deg 75deg 0m"
+          field-of-view="25deg"
+          style="width: 100%; height: 600px;"></model-viewer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUESTRO EQUIPO -->
+<section
+  class="bg-white pb-16 sm:pb-24"
   aria-labelledby="about-heading"
 >
- <div class="mx-auto mb-16 max-w-3xl text-center animate-fade-in-up">
+  <div class="mx-auto max-w-5xl px-6">
 
-    <div class="mx-auto max-w-3xl text-center mb-16">
-      <span class="text-lg font-semibold text-brand-mint-dark">Nuestra Historia</span>
-      <h2 id="about-heading" class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        Creado por estudiantes, pensado para negocios reales
+    <div
+      id="nosotros"
+      class="mx-auto mb-12 max-w-3xl scroll-mt-20 pt-10 text-center animate-fade-in-up"
+    >
+      <h2
+        id="about-heading"
+        class="mb-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+      >
+        Pensado para negocios reales
       </h2>
+
       <p class="mt-4 text-lg text-gray-600">
-        Somos InnovaCore, un equipo de estudiantes que desarrolló Scan n' Eat para resolver un problema real de restaurantes y cafeterías
+        Somos InnovaCore, un equipo que desarrolló Scan n' Eat
+        para resolver un problema real de restaurantes y cafeterías.
       </p>
     </div>
 
-    <div class="mt-24">
-      <div class="mx-auto max-w-3xl text-center mb-12">
-        <h3 class="text-2xl font-bold text-gray-900">Nuestro Equipo</h3>
+    <div class="mt-16">
+      <div class="mx-auto mb-12 max-w-3xl text-center">
+        <h3 class="text-2xl font-bold text-gray-900">
+          Nuestro Equipo
+        </h3>
+
         <p class="mt-4 text-lg text-gray-600">
-          5 estudiantes de Informática y Tecnología Multimedia, Sede del Pacífico
+          Del Pacífico, Esparza
         </p>
       </div>
 
       <div class="flex flex-wrap justify-center gap-12">
-        {team.map(({ name, role }) => (
-          <div class="flex flex-col items-center text-center w-64">
-            <div class="flex h-40 w-40 items-center justify-center rounded-full bg-brand-mint-dark text-4xl font-bold text-white">
-              {getInitials(name)}
+        {
+          team.map(({ name, role }) => (
+            <div class="flex w-64 flex-col items-center text-center">
+              <div class="flex h-40 w-40 items-center justify-center rounded-full bg-brand-mint-dark text-4xl font-bold text-white">
+                {getInitials(name)}
+              </div>
+
+              <h4 class="mt-4 text-lg font-medium text-gray-900">{name}</h4>
+
+              <p class="text-base text-gray-600">{role}</p>
             </div>
-            <h4 class="mt-4 text-lg font-medium text-gray-900">{name}</h4>
-            <p class="text-base text-gray-600">{role}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
-
-    <div class="mt-12 text-center">
-      <div class="mt-8">
-       <a
-  href="mailto:innovacore05@gmail.com"
-  class="inline-flex items-center justify-center rounded-md border border-transparent bg-brand-mint-dark px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-brand-mint-darker"
-  aria-label="Enviar correo a InnovaCore"
->
-  Contactá a nuestro equipo
-</a>
-        <p class="mt-3 text-sm text-gray-500">Conversemos sobre cómo Scan Eat puede ayudar a tu negocio</p>
-      </div>
-    </div>
-
   </div>
 </section>

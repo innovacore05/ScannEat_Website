@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+
+import About from "../components/About.astro";
+import Footer from "../components/Footer.astro";
+
+---
+
+<Layout
+  title="Scan n' Eat"
+  description="ScanEat es la plataforma de menú QR e integración de punto de venta para restaurantes en Costa Rica."
+  noindex={true}
+>
+  <Navbar />
+
+  <main class="pt-16">
+
+
+
+    <About />
+  
+
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  if (typeof window !== "undefined") {
+    import("@google/model-viewer");
+  }
+</script>
+

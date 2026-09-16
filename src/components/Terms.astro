@@ -1,0 +1,946 @@
+---
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+---
+
+<div
+  id="terms-modal"
+  class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="terms-title"
+>
+  <!-- Ventana del modal -->
+  <div
+    id="terms-content"
+    class="relative flex max-h-[85vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+  >
+
+    <!-- Encabezado -->
+    <div
+      class="flex items-center justify-between border-b border-gray-200 px-6 py-5"
+    >
+      <div>
+        <h2
+          id="terms-title"
+          class="text-xl font-bold text-gray-950 md:text-2xl"
+        >
+          Términos y condiciones
+        </h2>
+
+        <p class="mt-1 text-xs text-gray-500">
+          Scan n' Eat · Innovacore
+        </p>
+      </div>
+
+      <!-- Botón X -->
+      <button
+        id="close-terms"
+        type="button"
+        aria-label="Cerrar términos y condiciones"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-2xl text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-950"
+      >
+        &times;
+      </button>
+    </div>
+
+    <!-- Contenido con scroll -->
+    <div
+      class="overflow-y-auto px-6 py-7 text-sm leading-6 text-gray-700 md:px-10"
+    >
+
+      <p class="mb-8 text-xs text-gray-500">
+  <strong>Última actualización:</strong> 15 de septiembre de 2026
+</p>
+
+
+      <!-- Introducción -->
+      <section class="mb-8">
+        <p>
+          Estos Términos y Condiciones regulan el acceso y uso de la
+          plataforma <strong>Scan n' Eat</strong> y los servicios asociados
+          proporcionados por <strong>Innovacore</strong>.
+        </p>
+
+        <p class="mt-3">
+          Al registrarse, contratar, acceder o utilizar Scan n' Eat,
+          el usuario declara que ha leído y comprendido estos Términos
+          y Condiciones y acepta quedar sujeto a ellos, en la medida
+          permitida por la legislación aplicable.
+        </p>
+
+        <p class="mt-3">
+          Si el usuario no está de acuerdo con estos términos, deberá
+          abstenerse de utilizar la plataforma.
+        </p>
+      </section>
+
+      <!-- 1 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          1. Definiciones
+        </h3>
+
+        <p>
+          Para efectos de estos términos:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>
+            <strong>“Scan n' Eat”</strong> se refiere a la plataforma
+            tecnológica destinada a facilitar la gestión digital de
+            menús, pedidos, mesas y otras operaciones relacionadas con
+            establecimientos de alimentos y bebidas.
+          </li>
+
+          <li>
+            <strong>“Innovacore”</strong> se refiere al proveedor y
+            desarrollador de la plataforma Scan n' Eat.
+          </li>
+
+          <li>
+            <strong>“Cliente” o “Restaurante”</strong> se refiere a la
+            persona física o jurídica que contrata o utiliza Scan n' Eat
+            para administrar sus operaciones.
+          </li>
+
+          <li>
+            <strong>“Usuario final”</strong> se refiere a la persona que
+            interactúa con Scan n' Eat para consultar un menú, realizar
+            o consultar un pedido u utilizar las funcionalidades
+            disponibles.
+          </li>
+
+          <li>
+            <strong>“Plataforma”</strong> comprende el sitio web,
+            aplicaciones, interfaces, APIs y demás componentes
+            tecnológicos que formen parte de Scan n' Eat.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 2 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          2. Descripción del servicio
+        </h3>
+
+        <p>
+          Scan n' Eat proporciona herramientas tecnológicas para
+          facilitar la digitalización y gestión de determinadas
+          operaciones de restaurantes.
+        </p>
+
+        <p class="mt-3">
+          Dependiendo del plan contratado, las funcionalidades pueden
+          incluir:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Gestión y presentación de menús.</li>
+          <li>Administración de productos.</li>
+          <li>Gestión de mesas.</li>
+          <li>Generación y administración de pedidos.</li>
+          <li>Comunicación de pedidos entre dispositivos autorizados.</li>
+          <li>Herramientas para la gestión interna del restaurante.</li>
+          <li>
+            Funcionalidades relacionadas con facturación o integración
+            con servicios externos, cuando estén disponibles.
+          </li>
+        </ul>
+
+        <p class="mt-3">
+          Las funcionalidades disponibles pueden variar según el plan
+          contratado, la configuración del establecimiento y las
+          actualizaciones realizadas a la plataforma.
+        </p>
+
+        <p class="mt-3">
+          Scan n' Eat actúa como proveedor tecnológico y no constituye,
+          por sí mismo, el establecimiento que prepara, vende o entrega
+          los alimentos o productos ofrecidos mediante la plataforma.
+        </p>
+      </section>
+
+      <!-- 3 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          3. Responsabilidad sobre los productos y servicios del restaurante
+        </h3>
+
+        <p>
+          El restaurante es responsable de los productos y servicios que
+          ofrece mediante Scan n' Eat.
+        </p>
+
+        <p class="mt-3">
+          Esto incluye, entre otros:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Disponibilidad de los productos.</li>
+          <li>Precios.</li>
+          <li>Ingredientes y descripciones.</li>
+          <li>Información sobre alérgenos.</li>
+          <li>Promociones y descuentos.</li>
+          <li>Preparación de los alimentos.</li>
+          <li>Calidad de los productos.</li>
+          <li>Tiempos de preparación.</li>
+          <li>Entrega o atención del pedido.</li>
+          <li>
+            Cumplimiento de las obligaciones legales aplicables a su
+            actividad comercial.
+          </li>
+        </ul>
+
+        <p class="mt-3">
+          Scan n' Eat proporciona las herramientas tecnológicas para
+          gestionar esta información, pero no controla directamente la
+          preparación ni la calidad de los productos ofrecidos por cada
+          establecimiento.
+        </p>
+      </section>
+
+      <!-- 4 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          4. Cuenta y credenciales
+        </h3>
+
+        <p>
+          El Cliente será responsable de proporcionar información
+          correcta, completa y actualizada durante el registro y uso de
+          la plataforma.
+        </p>
+
+        <p class="mt-3">
+          Las credenciales de acceso deberán mantenerse bajo control del
+          Cliente y no deberán compartirse con personas no autorizadas.
+        </p>
+
+        <p class="mt-3">
+          El Cliente será responsable de las actividades realizadas
+          mediante sus cuentas, salvo cuando pueda demostrarse que estas
+          fueron utilizadas fraudulentamente sin responsabilidad
+          atribuible al Cliente.
+        </p>
+
+        <p class="mt-3">
+          Si el Cliente sospecha que sus credenciales han sido
+          comprometidas, deberá notificarlo a Scan n' Eat tan pronto como
+          sea posible.
+        </p>
+      </section>
+
+      <!-- 5 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          5. Uso adecuado de la plataforma
+        </h3>
+
+        <p>
+          El Cliente y los Usuarios se comprometen a utilizar Scan n' Eat
+          de manera lícita y responsable.
+        </p>
+
+        <p class="mt-3">
+          Está prohibido:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Utilizar la plataforma para actividades ilegales.</li>
+          <li>
+            Intentar acceder sin autorización a cuentas, sistemas o
+            información.
+          </li>
+          <li>
+            Interferir deliberadamente con el funcionamiento de la
+            plataforma.
+          </li>
+          <li>Introducir código malicioso.</li>
+          <li>
+            Realizar ingeniería inversa de componentes cuando dicha
+            actividad esté prohibida por la legislación aplicable.
+          </li>
+          <li>Utilizar la plataforma para vulnerar derechos de terceros.</li>
+          <li>Proporcionar información deliberadamente falsa o engañosa.</li>
+          <li>
+            Utilizar la plataforma de una manera que pueda afectar
+            negativamente a otros clientes o usuarios.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 6 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          6. Pedidos
+        </h3>
+
+        <p>
+          Los pedidos realizados mediante Scan n' Eat son comunicados al
+          establecimiento correspondiente.
+        </p>
+
+        <p class="mt-3">
+          La aceptación, preparación, modificación, cancelación y
+          entrega de un pedido dependen del restaurante y de las
+          condiciones aplicables a la operación.
+        </p>
+
+        <p class="mt-3">
+          Scan n' Eat no garantiza que un restaurante acepte un pedido
+          determinado, salvo cuando la funcionalidad específica indique
+          expresamente lo contrario.
+        </p>
+      </section>
+
+      <!-- 7 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          7. Precios, pagos y proveedores de pago
+        </h3>
+
+        <p>
+          Los precios de los productos y servicios ofrecidos por un
+          restaurante son responsabilidad del establecimiento
+          correspondiente.
+        </p>
+
+        <p class="mt-3">
+          Cuando Scan n' Eat utilice proveedores externos para procesar
+          pagos, la operación podrá estar sujeta adicionalmente a los
+          términos y condiciones de dichos proveedores.
+        </p>
+
+        <p class="mt-3">
+          Scan n' Eat no almacena ni controla directamente las
+          credenciales bancarias o datos completos de tarjetas cuando
+          estos sean procesados directamente por un proveedor de pagos
+          externo.
+        </p>
+
+        <p class="mt-3">
+          Los problemas relacionados con tarjetas rechazadas, fondos
+          insuficientes, bloqueos bancarios, operaciones no autorizadas
+          por la entidad financiera, fallas del banco, fallas del
+          proveedor de pagos, contracargos o tiempos de acreditación
+          deberán gestionarse, según corresponda, con la entidad
+          financiera, el proveedor de pagos o el establecimiento
+          involucrado.
+        </p>
+
+        <p class="mt-3">
+          Lo anterior no limita las obligaciones que legalmente
+          correspondan a Scan n' Eat.
+        </p>
+      </section>
+
+      <!-- 8 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          8. Disponibilidad del servicio
+        </h3>
+
+        <p>
+          Scan n' Eat procurará mantener la plataforma disponible y
+          funcionando de manera adecuada.
+        </p>
+
+        <p class="mt-3">
+          Sin embargo, no se garantiza que el servicio esté disponible
+          de manera ininterrumpida o libre de errores en todo momento.
+        </p>
+
+        <p class="mt-3">
+          Podrán producirse interrupciones debido, entre otras causas, a
+          mantenimiento programado, actualizaciones, fallos técnicos,
+          problemas de conectividad, fallos de proveedores de
+          infraestructura, fallos de servicios de terceros, incidentes
+          de seguridad, causas de fuerza mayor u otros acontecimientos
+          fuera del control razonable de Scan n' Eat.
+        </p>
+
+        <p class="mt-3">
+          Cuando sea razonablemente posible, Scan n' Eat procurará
+          informar sobre interrupciones programadas o incidentes
+          relevantes.
+        </p>
+      </section>
+
+      <!-- 9 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          9. Fallas atribuibles a Scan n' Eat
+        </h3>
+
+        <p>
+          En caso de una interrupción o falla técnica sustancial
+          directamente atribuible a Scan n' Eat, el Cliente podrá
+          reportar el incidente mediante los canales oficiales de
+          soporte.
+        </p>
+
+        <p class="mt-3">
+          Scan n' Eat procurará investigar y corregir el problema dentro
+          de un plazo razonable.
+        </p>
+
+        <p class="mt-3">
+          Cuando una falla sustancial atribuible directamente a
+          Scan n' Eat impida materialmente el uso del servicio durante
+          un período relevante, Scan n' Eat podrá, según las
+          circunstancias:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Restablecer el servicio.</li>
+          <li>Extender el período contratado.</li>
+          <li>Otorgar un crédito.</li>
+          <li>Realizar un reembolso proporcional al período afectado.</li>
+        </ul>
+
+        <p class="mt-3">
+          Cualquier compensación económica estará limitada, como máximo,
+          al importe efectivamente pagado por el Cliente correspondiente
+          al período mensual afectado por la falla, salvo que la
+          legislación aplicable establezca un derecho distinto que no
+          pueda ser excluido.
+        </p>
+
+        <p class="mt-3">
+          Una interrupción parcial, breve o que no impida materialmente
+          el uso del servicio no generará automáticamente derecho al
+          reembolso total de la mensualidad.
+        </p>
+      </section>
+
+      <!-- 10 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          10. Exclusiones respecto de interrupciones
+        </h3>
+
+        <p>
+          No se considerarán, por sí mismas, fallas atribuibles a
+          Scan n' Eat aquellas causadas por circunstancias externas o
+          fuera del control razonable de la plataforma, incluyendo
+          problemas de:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Conexión a Internet del Cliente.</li>
+          <li>Equipos del Cliente.</li>
+          <li>Configuración incorrecta realizada por el Cliente.</li>
+          <li>Sistemas bancarios.</li>
+          <li>Proveedores de pago.</li>
+          <li>Servicios externos.</li>
+          <li>Servicios de infraestructura tecnológica.</li>
+          <li>Sistemas operativos o navegadores.</li>
+          <li>Terceros.</li>
+          <li>Fuerza mayor.</li>
+        </ul>
+
+        <p class="mt-3">
+          Cuando un incidente externo afecte la disponibilidad de
+          Scan n' Eat, el equipo procurará restablecer el servicio y
+          colaborar razonablemente en la identificación de la causa.
+        </p>
+      </section>
+
+      <!-- 11 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          11. Solicitudes de reembolso
+        </h3>
+
+        <p>
+          Las solicitudes de reembolso deberán realizarse mediante los
+          canales oficiales de soporte e incluir información suficiente
+          para identificar la cuenta, el período afectado y la naturaleza
+          del inconveniente.
+        </p>
+
+        <p class="mt-3">
+          Scan n' Eat podrá solicitar información adicional
+          razonablemente necesaria para investigar la solicitud.
+        </p>
+
+        <p class="mt-3">
+          Cuando corresponda un reembolso, este se realizará utilizando,
+          cuando sea posible, el mismo medio utilizado para efectuar el
+          pago original o mediante el mecanismo disponible establecido
+          por el proveedor de pagos.
+        </p>
+
+        <p class="mt-3">
+          Los reembolsos relacionados con una falla del servicio se
+          limitarán al período contratado que haya sido directamente
+          afectado por dicha falla, sin perjuicio de los derechos
+          irrenunciables establecidos por la legislación aplicable.
+        </p>
+      </section>
+
+      <!-- 12 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          12. Datos personales
+        </h3>
+
+        <p>
+          Scan n' Eat podrá recopilar y procesar información necesaria
+          para proporcionar, mantener, proteger y mejorar sus servicios.
+        </p>
+
+        <p class="mt-3">
+          Dependiendo del uso de la plataforma, esta información podrá
+          incluir:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Nombre.</li>
+          <li>Correo electrónico.</li>
+          <li>Información de contacto.</li>
+          <li>Información relacionada con la cuenta.</li>
+          <li>Información necesaria para gestionar pedidos.</li>
+          <li>Información técnica.</li>
+          <li>Registros de actividad.</li>
+          <li>Información relacionada con el funcionamiento y seguridad.</li>
+        </ul>
+
+        <p class="mt-3">
+          Scan n' Eat procurará recopilar únicamente la información
+          razonablemente necesaria para los fines correspondientes y
+          aplicará medidas técnicas y organizativas razonables destinadas
+          a protegerla.
+        </p>
+
+        <p class="mt-3">
+          Los datos personales no serán comercializados de manera
+          incompatible con los fines informados al usuario.
+        </p>
+
+        <p class="mt-3">
+          Cuando sea necesario utilizar proveedores externos para
+          proporcionar la plataforma, determinados datos podrán ser
+          procesados por dichos proveedores exclusivamente en la medida
+          necesaria para prestar sus servicios.
+        </p>
+
+        <p class="mt-3">
+          El tratamiento de datos personales se regirá adicionalmente
+          por la <strong>Política de Privacidad de Scan n' Eat</strong>.
+        </p>
+      </section>
+
+      <!-- 13 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          13. Seguridad de la información
+        </h3>
+
+        <p>
+          Scan n' Eat implementará medidas razonables de seguridad
+          destinadas a proteger la información frente a accesos,
+          modificaciones, divulgaciones o destrucciones no autorizadas.
+        </p>
+
+        <p class="mt-3">
+          No obstante, ningún sistema conectado a Internet puede
+          garantizar seguridad absoluta.
+        </p>
+
+        <p class="mt-3">
+          En caso de detectar un incidente que pueda afectar
+          significativamente la seguridad de la información, Scan n' Eat
+          actuará conforme a las obligaciones legales aplicables y
+          adoptará medidas razonables para contener y solucionar el
+          incidente.
+        </p>
+      </section>
+
+      <!-- 14 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          14. Conservación y eliminación de información
+        </h3>
+
+        <p>
+          La información podrá conservarse durante el tiempo necesario
+          para proporcionar el servicio, cumplir obligaciones legales,
+          resolver disputas, mantener registros comerciales, prevenir
+          fraudes o proteger los derechos de Scan n' Eat y sus usuarios.
+        </p>
+
+        <p class="mt-3">
+          Una vez que la información deje de ser necesaria, podrá ser
+          eliminada, anonimizada o conservada cuando exista una
+          obligación legal o legítima que justifique su conservación.
+        </p>
+      </section>
+
+      <!-- 15 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          15. Propiedad intelectual
+        </h3>
+
+        <p>
+          La plataforma, incluyendo su software, diseño, interfaces,
+          marcas, logotipos, documentación, elementos gráficos y demás
+          componentes desarrollados por Scan n' Eat o Innovacore son
+          propiedad de sus respectivos titulares y están protegidos por
+          la legislación aplicable.
+        </p>
+
+        <p class="mt-3">
+          El uso de Scan n' Eat no transfiere al Cliente ningún derecho
+          de propiedad sobre la plataforma.
+        </p>
+
+        <p class="mt-3">
+          El Cliente conserva los derechos que legalmente le
+          correspondan sobre la información y contenido que introduzca
+          en la plataforma.
+        </p>
+      </section>
+
+      <!-- 16 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          16. Contenido proporcionado por el Cliente
+        </h3>
+
+        <p>
+          El Cliente será responsable de contar con los derechos,
+          autorizaciones y permisos necesarios para utilizar el
+          contenido que introduzca en Scan n' Eat.
+        </p>
+
+        <p class="mt-3">
+          Esto incluye imágenes, logotipos, nombres comerciales,
+          fotografías, descripciones, textos, precios y demás
+          información.
+        </p>
+
+        <p class="mt-3">
+          El Cliente concede a Scan n' Eat una autorización limitada y
+          no exclusiva para alojar, procesar, reproducir y mostrar dicho
+          contenido únicamente en la medida necesaria para proporcionar
+          el servicio contratado.
+        </p>
+      </section>
+
+      <!-- 17 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          17. Servicios de terceros
+        </h3>
+
+        <p>
+          Scan n' Eat puede depender de proveedores externos para
+          determinadas funciones, incluyendo infraestructura tecnológica,
+          almacenamiento, comunicaciones, análisis, pagos u otros
+          servicios.
+        </p>
+
+        <p class="mt-3">
+          La disponibilidad y funcionamiento de dichos servicios puede
+          depender de sus respectivos proveedores.
+        </p>
+
+        <p class="mt-3">
+          Cuando una funcionalidad dependa de un tercero, Scan n' Eat no
+          será responsable por una interrupción causada exclusivamente
+          por dicho tercero, salvo cuando la legislación aplicable
+          establezca lo contrario o exista responsabilidad atribuible a
+          Scan n' Eat.
+        </p>
+      </section>
+
+      <!-- 18 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          18. Limitación de responsabilidad
+        </h3>
+
+        <p>
+          En la medida permitida por la legislación aplicable, Scan n' Eat
+          no será responsable por daños indirectos, incidentales,
+          especiales, consecuenciales o pérdida de beneficios derivados
+          exclusivamente del uso o imposibilidad de uso de la
+          plataforma.
+        </p>
+
+        <p class="mt-3">
+          Esto puede incluir pérdidas derivadas de interrupciones
+          comerciales, pérdida de ventas, pérdida de oportunidades
+          comerciales o daños derivados de decisiones tomadas con base
+          en información proporcionada mediante la plataforma.
+        </p>
+
+        <p class="mt-3">
+          Esta limitación no pretende excluir ni limitar
+          responsabilidades que legalmente no puedan ser excluidas o
+          limitadas.
+        </p>
+      </section>
+
+      <!-- 19 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          19. Suspensión o terminación
+        </h3>
+
+        <p>
+          Scan n' Eat podrá suspender temporalmente una cuenta cuando
+          sea razonablemente necesario para:
+        </p>
+
+        <ul class="mt-3 space-y-2 pl-5 list-disc">
+          <li>Proteger la seguridad de la plataforma.</li>
+          <li>Investigar actividades sospechosas.</li>
+          <li>Prevenir fraude o abuso.</li>
+          <li>Cumplir obligaciones legales.</li>
+          <li>Corregir incidentes técnicos.</li>
+          <li>Responder a incumplimientos de estos términos.</li>
+        </ul>
+
+        <p class="mt-3">
+          Cuando resulte razonablemente posible, Scan n' Eat procurará
+          informar al Cliente sobre la suspensión y las medidas
+          necesarias para resolver la situación.
+        </p>
+
+        <p class="mt-3">
+          La terminación del servicio no eliminará las obligaciones que,
+          por su naturaleza, deban continuar después de dicha terminación.
+        </p>
+      </section>
+
+      <!-- 20 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          20. Modificaciones de la plataforma
+        </h3>
+
+        <p>
+          Scan n' Eat podrá modificar, actualizar, sustituir o retirar
+          funcionalidades de la plataforma cuando sea necesario para
+          mejorar el servicio, mantener su seguridad, adaptarse a cambios
+          tecnológicos o cumplir requisitos legales.
+        </p>
+
+        <p class="mt-3">
+          Cuando una modificación represente un cambio material en las
+          condiciones contratadas, se procurará comunicarla con
+          antelación razonable cuando sea legal y técnicamente posible.
+        </p>
+      </section>
+
+      <!-- 21 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          21. Modificaciones de estos términos
+        </h3>
+
+        <p>
+          Scan n' Eat podrá actualizar estos Términos y Condiciones.
+        </p>
+
+        <p class="mt-3">
+          Las modificaciones relevantes serán comunicadas mediante los
+          medios disponibles y entrarán en vigor en la fecha indicada
+          en la versión actualizada.
+        </p>
+
+        <p class="mt-3">
+          El uso continuado de la plataforma después de la entrada en
+          vigor de las modificaciones podrá constituir aceptación de los
+          nuevos términos cuando ello sea permitido por la legislación
+          aplicable.
+        </p>
+
+        <p class="mt-3">
+          Los derechos que legalmente correspondan al consumidor o al
+          Cliente no se verán afectados por una modificación contractual.
+        </p>
+      </section>
+
+      <!-- 22 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          22. Usuarios y operaciones internacionales
+        </h3>
+
+        <p>
+          Scan n' Eat puede ser accesible desde distintos países.
+        </p>
+
+        <p class="mt-3">
+          La disponibilidad del servicio desde un determinado territorio
+          no significa necesariamente que Scan n' Eat opere
+          comercialmente en dicho territorio ni que todas las
+          funcionalidades estén disponibles en él.
+        </p>
+
+        <p class="mt-3">
+          Los usuarios son responsables de cumplir las leyes que les
+          resulten aplicables.
+        </p>
+
+        <p class="mt-3">
+          Cuando las leyes de un país otorguen derechos obligatorios
+          adicionales a los usuarios, dichos derechos prevalecerán sobre
+          cualquier disposición de estos términos que sea incompatible
+          con ellos.
+        </p>
+      </section>
+
+      <!-- 23 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          23. Legislación aplicable
+        </h3>
+
+        <p>
+          Estos Términos y Condiciones se interpretarán de acuerdo con
+          las leyes de la República de Costa Rica, sin perjuicio de las
+          normas imperativas de protección al consumidor, protección de
+          datos u otras disposiciones que puedan resultar aplicables al
+          usuario según su jurisdicción.
+        </p>
+
+        <p class="mt-3">
+          Ninguna disposición de estos términos pretende privar al
+          consumidor de los derechos que legalmente le correspondan.
+        </p>
+      </section>
+
+      <!-- 24 -->
+      <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          24. Resolución de conflictos
+        </h3>
+
+        <p>
+          Las partes procurarán resolver de buena fe cualquier
+          controversia relacionada con el servicio mediante comunicación
+          directa con Scan n' Eat antes de iniciar otros procedimientos,
+          cuando la legislación aplicable permita dicho mecanismo.
+        </p>
+
+        <p class="mt-3">
+          Cuando no sea posible alcanzar una solución, las partes podrán
+          acudir a los mecanismos administrativos, arbitrales o
+          judiciales que correspondan conforme a la legislación aplicable.
+        </p>
+      </section>
+
+      <!-- 25 -->
+    
+      <section>
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          25. Aceptación
+        </h3>
+
+        <p>
+          Al registrarse, contratar o utilizar Scan n' Eat, el usuario
+          reconoce haber tenido acceso a estos Términos y Condiciones y
+          acepta cumplirlos en la medida permitida por la legislación
+          aplicable.
+        </p>
+
+      
+
+      </section>
+
+      <!-- 26 -->
+
+  <section class="mb-8">
+        <h3 class="mb-3 text-base font-bold text-gray-950">
+          26. Contacto
+        </h3>
+
+        <p>
+          Para consultas, reclamos, solicitudes relacionadas con el
+          servicio o solicitudes relacionadas con estos Términos y
+          Condiciones, el usuario podrá comunicarse mediante:
+        </p>
+
+        <div class="mt-4 rounded-xl bg-gray-50 p-4">
+          <p>
+            <strong>Correo electrónico:</strong>
+{contactEmail}
+          </p>
+
+          <p class="mt-2">
+            <strong>Empresa:</strong> Innovacore
+          </p>
+
+          <p class="mt-2">
+            <strong>País:</strong> Costa Rica
+          </p>
+        </div>
+      </section>
+
+  <p class="mb-8 text-xs text-gray-500">
+  <strong>Última actualización:</strong> 15 de septiembre de 2026
+</p>
+
+    </div>
+
+
+    
+
+    <!-- Pie del modal -->
+    <div
+      class="flex justify-end border-t border-gray-200 bg-gray-50 px-6 py-4"
+    >
+      <button
+        id="close-terms-footer"
+        type="button"
+        class="rounded-lg bg-gray-950 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+      >
+        Cerrar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("terms-modal");
+  const closeButton = document.getElementById("close-terms");
+  const closeFooterButton = document.getElementById("close-terms-footer");
+  const openButton = document.getElementById("open-terms");
+
+  const openModal = () => {
+    modal?.classList.remove("hidden");
+    modal?.classList.add("flex");
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const closeModal = () => {
+    modal?.classList.add("hidden");
+    modal?.classList.remove("flex");
+    document.body.classList.remove("overflow-hidden");
+  };
+
+  openButton?.addEventListener("click", openModal);
+  closeButton?.addEventListener("click", closeModal);
+  closeFooterButton?.addEventListener("click", closeModal);
+
+  // Cerrar al hacer clic en el fondo oscuro
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Cerrar con Escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal?.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+</script>
