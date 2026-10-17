@@ -6,6 +6,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
 const facebookUrl = import.meta.env.PUBLIC_URL_FACEBOOK;
 const instagramUrl = import.meta.env.PUBLIC_URL_INSTAGRAM;
 const tiktokUrl = import.meta.env.PUBLIC_URL_TIKTOK;
+const linktreeUrl = import.meta.env.PUBLIC_URL_LINKTREE;
 
 ---
 
@@ -184,11 +185,20 @@ const tiktokUrl = import.meta.env.PUBLIC_URL_TIKTOK;
       Desarrollado por
     </p>
 
-    <img
+    <a
+    href={linktreeUrl}
+    target="_blank"
+    rel="noopener neroferrer"
+    aria-label="Redes sociales de Innovacore"
+    class="transition-all hover:scale-110"
+    >
+      <img
       src="/logo-innovacore-black.svg"
       alt="Innovacore"
       class="mt-3 h-8 w-auto"
-    />
+    /> 
+    </a>
+   
 
     <p class="mt-5 text-xs text-gray-500">
       © {new Date().getFullYear()} Innovacore. Todos los derechos reservados.
