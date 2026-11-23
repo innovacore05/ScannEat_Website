@@ -42,9 +42,10 @@ const phoneVideoWebm = "/telefonomenu-optimized.webm";
         class="absolute inset-0 size-full object-cover"
         poster={heroPoster}
         muted
+        autoplay
         loop
         playsinline
-        preload="none"
+        preload="auto"
         data-lazy-video="foreground"
       >
         <source src={heroVideoWebm} type="video/webm" />
@@ -174,7 +175,7 @@ const render = (p: number) => {
     // Precarga el video mientras el marco se acerca al teléfono.
     if (s > 0.65) preparePhoneVideo();
 
-    setVideoPlaying(foregroundVideo, !prefersReducedMotion);
+    setVideoPlaying(foregroundVideo, true);
     setVideoPlaying(backgroundVideo, !isTouchTablet && s > 0.02);
     setVideoPlaying(phoneVideo, !prefersReducedMotion && rise > 0.02);
 
