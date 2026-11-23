@@ -11,11 +11,11 @@ const johanLinkedin = import.meta.env.PUBLIC_URL_JOHAN;
 const francinyLinkedin = import.meta.env.PUBLIC_URL_FRANCINY;
 
 const team = [
-  { name: "Brittany Garcia", role: "BACKEND DEVELOPER", photo: "/brittany.webp", vcard: "https://vcard.ws/brittany-garcia" },
-  { name: "Alisson Gomez", role: "CEO & PRODUCT LEAD", photo: "/alisson.webp", vcard: "https://vcard.ws/alisson-gomez" },
-  { name: "Johan Brenes", role: "QA ENGINEER", photo: "/johan.webp", vcard: "https://vcard.ws/johan-brenes-vargas" },
-  { name: "Franciny Bonilla", role: "FRONTEND DEVELOPER", photo: "/franciny.webp", vcard: "https://vcard.ws/franciny-raquel-bonilla-ortiz" },
-  { name: "Laura Arroyo", role: "SOFTWARE ARCHITECT", photo: "/laura.webp", vcard: "https://vcard.ws/lear" },
+  { name: "Brittany Garcia", role: "FULL STACK DEVELOPER", photo: "/brittany.webp", vcard: "https://vcard.ws/brittany-garcia" },
+  { name: "Alisson Gomez", role: "FULL STACK DEVELOPER", photo: "/alisson.webp", vcard: "https://vcard.ws/alisson-gomez" },
+  { name: "Johan Brenes", role: "FULL STACK DEVELOPER", photo: "/johan.webp", vcard: "https://vcard.ws/johan-brenes-vargas" },
+  { name: "Franciny Bonilla", role: "FFULL STACK DEVELOPER", photo: "/franciny.webp", vcard: "https://vcard.ws/franciny-raquel-bonilla-ortiz" },
+  { name: "Laura Arroyo", role: "FULL STACK DEVELOPER", photo: "/laura.webp", vcard: "https://vcard.ws/lear" },
 ];
 
 const getInitials = (name: string) =>
@@ -106,9 +106,7 @@ const getInitials = (name: string) =>
       if (!entry?.isIntersecting) return;
       observer.disconnect();
       await import("@google/model-viewer");
-      const modelSrc = isTouchTablet
-        ? "/innovacorecori-ipad.glb"
-        : modelViewer.dataset.modelSrc;
+      const modelSrc = "/innovacorecori-optimized.glb";
       if (modelSrc) modelViewer.setAttribute("src", modelSrc);
     }, { rootMargin: "200px" });
 
