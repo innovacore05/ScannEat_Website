@@ -142,8 +142,7 @@ const getInitials = (name: string) =>
     <!-- Galería a la derecha -->
     <div
       id="team-gallery"
-      class="flex h-100 w-full gap-2 sm:h-120 sm:gap-3"
-      style="touch-action: pan-y;"
+      class="grid h-auto w-full grid-cols-1 gap-4 lg:flex lg:h-100 lg:gap-2 xl:h-120 xl:gap-3"
     >
       {
         team.map(({ name, role, photo, vcard }, i) => (
@@ -153,7 +152,7 @@ const getInitials = (name: string) =>
             rel="noopener"
             aria-label={`Ver vCard de ${name}, ${role}`}
             data-active={i === 1 ? "true" : "false"}
-            class="group/panel relative min-w-0 grow basis-0 overflow-hidden rounded-2xl bg-brand-mint-dark text-left text-white transition-[flex-grow] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] data-[active=true]:grow-[5] sm:rounded-3xl"
+            class="group/panel relative aspect-[4/5] w-full min-w-0 overflow-hidden rounded-2xl bg-brand-mint-dark text-left text-white sm:rounded-3xl lg:h-full lg:w-auto lg:grow lg:basis-0 lg:aspect-auto lg:transition-[flex-grow] lg:duration-700 lg:ease-[cubic-bezier(0.4,0,0.2,1)] lg:data-[active=true]:grow-[5]"
           >
             {photo ? (
               <img
@@ -171,11 +170,11 @@ const getInitials = (name: string) =>
 
             <div class="absolute inset-0 bg-linear-to-t from-black/55 to-transparent to-55%" />
 
-            <span class="absolute bottom-6 left-1/2 -translate-x-1/2 rotate-180 font-semibold tracking-wide opacity-100 transition-opacity duration-300 [writing-mode:vertical-rl] group-data-[active=true]/panel:opacity-0">
+            <span class="hidden lg:absolute lg:bottom-6 lg:left-1/2 lg:block lg:-translate-x-1/2 lg:rotate-180 lg:font-semibold lg:tracking-wide lg:opacity-100 lg:transition-opacity lg:duration-300 lg:[writing-mode:vertical-rl] lg:group-data-[active=true]/panel:opacity-0">
               {name.split(" ")[0]}
             </span>
 
-            <div class="absolute bottom-5 left-5 translate-y-3 whitespace-nowrap opacity-0 transition-all delay-200 duration-500 group-data-[active=true]/panel:translate-y-0 group-data-[active=true]/panel:opacity-100">
+            <div class="absolute bottom-5 left-5 translate-y-0 whitespace-nowrap opacity-100 transition-all duration-300 lg:translate-y-3 lg:opacity-0 lg:delay-200 lg:duration-500 lg:group-data-[active=true]/panel:translate-y-0 lg:group-data-[active=true]/panel:opacity-100">
               <p class="text-xl font-bold">{name}</p>
               <p class="text-xs tracking-widest opacity-80">{role}</p>
              
@@ -188,9 +187,7 @@ const getInitials = (name: string) =>
 </section>
 
 <script>
-  const gallery = document.getElementById("team-gallery");
   const panels = document.querySelectorAll<HTMLElement>("#team-gallery > a");
-  const panelList = [...panels];
 
   const activate = (activePanel: HTMLElement) =>
     panels.forEach((panel) => {
@@ -201,13 +198,9 @@ const getInitials = (name: string) =>
     panel.addEventListener("mouseenter", () => activate(panel));
     panel.addEventListener("focus", () => activate(panel));
 
-    // En celular: el primer toque expande la foto, el segundo abre la vCard.
     panel.addEventListener("click", (e) => {
-      if (suppressNextClick) {
-        e.preventDefault();
-        suppressNextClick = false;
-        return;
-      }
+      // En móvil las tarjetas ya están abiertas; el toque puede visitar la vCard.
+      if (window.matchMedia("(max-width: 1023px)").matches) return;
 
       if (panel.dataset.active !== "true") {
         e.preventDefault();
@@ -215,57 +208,4 @@ const getInitials = (name: string) =>
       }
     });
   });
-
-  let activePointerId: number | null = null;
-  let startX = 0;
-  let isDragging = false;
-  let suppressNextClick = false;
-
-  gallery?.addEventListener("pointerdown", (event) => {
-    if (event.pointerType !== "touch" || !window.matchMedia("(max-width: 767px)").matches) {
-      return;
-    }
-
-    activePointerId = event.pointerId;
-    startX = event.clientX;
-    isDragging = false;
-    gallery.setPointerCapture(event.pointerId);
-  });
-
-  gallery?.addEventListener("pointermove", (event) => {
-    if (event.pointerId !== activePointerId) return;
-
-    if (!isDragging && Math.abs(event.clientX - startX) > 10) {
-      isDragging = true;
-    }
-    if (!isDragging || !gallery || panelList.length === 0) return;
-
-    const bounds = gallery.getBoundingClientRect();
-    if (bounds.width === 0) return;
-    const position = (event.clientX - bounds.left) / bounds.width;
-    const index = Math.min(
-      panelList.length - 1,
-      Math.max(0, Math.floor(position * panelList.length)),
-    );
-    const panel = panelList[index];
-    if (panel) activate(panel);
-  });
-
-  const finishPointer = (event: PointerEvent) => {
-    if (event.pointerId !== activePointerId) return;
-
-    if (isDragging) {
-      suppressNextClick = true;
-      window.setTimeout(() => (suppressNextClick = false), 700);
-    }
-
-    if (gallery?.hasPointerCapture(event.pointerId)) {
-      gallery.releasePointerCapture(event.pointerId);
-    }
-    activePointerId = null;
-    isDragging = false;
-  };
-
-  gallery?.addEventListener("pointerup", finishPointer);
-  gallery?.addEventListener("pointercancel", finishPointer);
 </script>
