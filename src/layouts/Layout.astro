@@ -51,10 +51,8 @@ import WhatsAppBubble from "../components/WhatsAppBubble.astro";
         });
       };
 
-      if (anchorTarget && !prefersReducedMotion) {
+      if (anchorTarget && anchorTarget.id !== "inicio" && !prefersReducedMotion) {
         animateNavTarget(anchorTarget);
-      } else if (main && !prefersReducedMotion) {
-        animate(main, { opacity: [0, 1] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
       }
 
       const scrollFadeItems = document.querySelectorAll<HTMLElement>("[data-scroll-fade]");

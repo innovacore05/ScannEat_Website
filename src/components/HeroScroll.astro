@@ -166,11 +166,11 @@ const render = (p: number) => {
     const s = ease(clamp((p - 0.1) / 0.5));
     section.style.setProperty("--s", s.toFixed(3));
 
-    // Fase 2: con más scroll, el video del menú digital sube dentro del celular (60% a 95%)
+    // El video del menú sube dentro del celular después de que el marco llega.
     const phonePhaseStart = 0.6;
     const rise = ease(clamp((p - phonePhaseStart) / 0.35));
 
-    // Precarga mientras el marco se acerca; el video no espera a empezar a subir.
+    // Precarga el video mientras el marco se acerca al teléfono.
     if (s > 0.65) preparePhoneVideo();
 
     setVideoPlaying(backgroundVideo, s > 0.02);
@@ -196,7 +196,7 @@ const render = (p: number) => {
     }
 
     if (shade) shade.style.opacity = (0.25 * (1 - s)).toFixed(3);
-    // Muestra el bisel cuando el marco casi llegó al teléfono, con margen para el redondeo del scroll.
+    // Muestra el bisel cuando el marco casi llegó al teléfono.
     if (slot) slot.style.opacity = s >= 0.9999 ? "1" : "0";
     if (phoneVideo) phoneVideo.style.transform = `translateY(${(1 - rise) * 100}%)`;
     if (notch) notch.style.opacity = s.toFixed(3);
