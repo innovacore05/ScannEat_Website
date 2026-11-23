@@ -152,6 +152,9 @@ const phoneVideoWebm = "/telefonomenu-optimized.webm";
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
+  const isTouchTablet = window.matchMedia("(min-width: 768px)").matches &&
+    navigator.maxTouchPoints > 0;
+  let heroIsVisible = true;
   let progress = 0;
   let slotGeometry: { left: number; top: number; width: number; height: number } | null = null;
 
@@ -171,10 +174,14 @@ const render = (p: number) => {
     const rise = ease(clamp((p - phonePhaseStart) / 0.35));
 
     // Precarga el video mientras el marco se acerca al teléfono.
-    if (s > 0.65) preparePhoneVideo();
+    if (heroIsVisible && s > 0.65) preparePhoneVideo();
 
-    setVideoPlaying(backgroundVideo, s > 0.02);
-    setVideoPlaying(phoneVideo, rise > 0.02);
+    setVideoPlaying(
+      foregroundVideo,
+      heroIsVisible && !prefersReducedMotion && (!isTouchTablet || p < phonePhaseStart),
+    );
+    setVideoPlaying(backgroundVideo, heroIsVisible && !isTouchTablet && s > 0.02);
+    setVideoPlaying(phoneVideo, heroIsVisible && !prefersReducedMotion && rise > 0.02);
 
     const vw = window.innerWidth;
     const vh = window.innerHeight;
@@ -226,11 +233,25 @@ const render = (p: number) => {
   measureSlot();
   window.addEventListener("resize", measureSlot);
 
+  if (section) {
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (!entry) return;
+      heroIsVisible = entry.isIntersecting;
+      if (!heroIsVisible) {
+        setVideoPlaying(backgroundVideo, false);
+        setVideoPlaying(foregroundVideo, false);
+        setVideoPlaying(phoneVideo, false);
+      } else {
+        render(progress);
+      }
+    });
+    visibilityObserver.observe(section);
+  }
+
   if (prefersReducedMotion) {
     if (section) section.style.height = "100vh";
     render(0);
   } else if (section) {
-    setVideoPlaying(foregroundVideo, true);
     scroll((nextProgress) => render(nextProgress), {
       target: section,
       offset: ["start start", "end end"],

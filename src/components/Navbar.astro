@@ -148,7 +148,7 @@ const menuBtn = onLight
   };
 
   // Los enlaces internos usan scroll de Motion cuando ya estamos en esa página.
-  let anchorAnimation: { stop: () => void } | undefined;
+  let anchorAnimation: ReturnType<typeof animate> | undefined;
   let anchorAnimationId = 0;
   const cancelAnchorAnimation = () => {
     if (!anchorAnimation) return;
