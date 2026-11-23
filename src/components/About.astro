@@ -98,7 +98,7 @@ const getInitials = (name: string) =>
   const modelViewer = document.querySelector<HTMLElement>("model-viewer");
 
   if (modelViewer) {
-    const isTouchTablet = window.matchMedia("(min-width: 768px)").matches &&
+    const isTouchTablet = window.matchMedia("(min-width: 600px)").matches &&
       navigator.maxTouchPoints > 0;
     if (isTouchTablet) modelViewer.removeAttribute("auto-rotate");
 
@@ -106,7 +106,9 @@ const getInitials = (name: string) =>
       if (!entry?.isIntersecting) return;
       observer.disconnect();
       await import("@google/model-viewer");
-      const modelSrc = modelViewer.dataset.modelSrc;
+      const modelSrc = isTouchTablet
+        ? "/innovacorecori-ipad.glb"
+        : modelViewer.dataset.modelSrc;
       if (modelSrc) modelViewer.setAttribute("src", modelSrc);
     }, { rootMargin: "200px" });
 
