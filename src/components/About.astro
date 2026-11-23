@@ -98,6 +98,10 @@ const getInitials = (name: string) =>
   const modelViewer = document.querySelector<HTMLElement>("model-viewer");
 
   if (modelViewer) {
+    const isTouchTablet = window.matchMedia("(min-width: 768px)").matches &&
+      navigator.maxTouchPoints > 0;
+    if (isTouchTablet) modelViewer.removeAttribute("auto-rotate");
+
     const modelObserver = new IntersectionObserver(async ([entry], observer) => {
       if (!entry?.isIntersecting) return;
       observer.disconnect();
