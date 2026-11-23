@@ -4,6 +4,11 @@ export interface Props {}
 const {} = Astro.props;
 
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+const lauraLinkedin = import.meta.env.PUBLIC_URL_LAURA;
+const brittanyLinkedin = import.meta.env.PUBLIC_URL_BRITTANY;
+const alissonLinkedin = import.meta.env.PUBLIC_URL_ALISSON;
+const johanLinkedin = import.meta.env.PUBLIC_URL_JOHAN;
+const francinyLinkedin = import.meta.env.PUBLIC_URL_FRANCINY;
 
 const team = [
   { name: "Brittany Garcia", role: "BACKEND DEVELOPER", photo: "/brittany.webp", vcard: "https://vcard.ws/brittany-garcia" },
@@ -66,7 +71,7 @@ const getInitials = (name: string) =>
         class="mt-8 inline-flex items-center justify-center rounded-xl bg-brand-mint-dark px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-brand-mint-darker"
         aria-label="Enviar correo a Innovacore"
       >
-        Contactanos
+        Contáctanos
       </a>
     </div>
 
