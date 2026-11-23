@@ -1,84 +1,99 @@
 ---
 const appUrl = import.meta.env.PUBLIC_APP_URL;
+const { onLight = false } = Astro.props;
+
+const link = onLight
+  ? "text-brand-mint-dark hover:text-brand-mint-darker"
+  : "text-white hover:text-teal-100 group-data-[scrolled=true]/nav:text-brand-mint-dark group-data-[scrolled=true]/nav:hover:text-brand-mint-darker";
+
+const btn = onLight
+  ? "bg-brand-mint-dark text-white hover:bg-brand-mint-dark/85"
+  : "bg-white text-brand-mint-darker hover:bg-white/85 group-data-[scrolled=true]/nav:bg-brand-mint-dark group-data-[scrolled=true]/nav:text-white group-data-[scrolled=true]/nav:hover:bg-brand-mint-dark/85";
+
+const menuBtn = onLight
+  ? "text-brand-mint-dark"
+  : "text-white group-data-[scrolled=true]/nav:text-brand-mint-dark";
 ---
 
 <header
   id="navbar"
-  class="fixed top-0 left-0 z-50 w-full translate-y-0 bg-brand-mint-dark shadow-xs transition-transform duration-300"
+  data-light={onLight}
+  data-scrolled="false"
+ class="group/nav fixed top-0 left-0 z-50 w-full translate-y-0 transition-all duration-300 data-[scrolled=true]:bg-white/80 data-[scrolled=true]:backdrop-blur-md"
 >
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
+ <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
 
-<!-- Logo -->
-<img
-  src="/logoscaneat.svg"
-  alt="Scan n' Eat"
-  class="h-8 w-auto"
-/>
+    <!-- Logo + links juntos a la izquierda -->
+    <div class="flex items-center gap-8">
+      {onLight ? (
+        <img src="/logoscaneat-color.svg" alt="Scan n' Eat" class="h-8 w-auto" />
+      ) : (
+        <>
+          <img
+            src="/logoscaneat.svg"
+            alt="Scan n' Eat"
+            class="h-8 w-auto group-data-[scrolled=true]/nav:hidden"
+          />
+          <img
+            src="/logoscaneat-color.svg"
+            alt="Scan n' Eat"
+            class="hidden h-8 w-auto group-data-[scrolled=true]/nav:block"
+          />
+        </>
+      )}
 
-<!-- barra de navegacion opciones -->
-<nav class="hidden items-center gap-8 md:flex">
-      <a href="/#inicio" class="font-medium text-white transition hover:text-teal-100">Inicio</a>
-      <a href="/product#funcionalidades" class="font-medium text-white transition hover:text-teal-100">Funcionalidades</a>
-      <a href="/aboutUs#nosotros" class="font-medium text-white transition hover:text-teal-100">Nosotros</a>
-      
-      <!-- <a href="#contacto" class="font-medium text-white transition hover:text-teal-100">Contacto</a> -->
-    </nav>
+      <nav class="hidden items-center gap-8 md:flex">
+        <a href="/#inicio" class={`font-medium transition ${link}`}>Inicio</a>
+        <a href="/#funcionalidades" class={`font-medium transition ${link}`}>Funcionalidades</a>
+        <a href="/aboutUs#nosotros" class={`font-medium transition ${link}`}>Nosotros</a>
+      </nav>
+    </div>
 
-<!-- registro e inicio de sesion -->
-<div class="hidden items-center gap-3 md:flex">
-  <a
-    href={`${appUrl}/register`}
-    class="rounded-md border border-white px-4 py-1 font-semibold text-white transition hover:bg-white hover:text-brand-mint-dark"
-  >
-    Registrarse
-  </a>
+    <!-- registro -->
+    <div class="hidden items-center gap-3 md:flex">
+      <a
+        href={`${appUrl}/register`}
+        class={`rounded-4xl px-4 py-1 font-semibold transition-colors duration-200 ${btn}`}
+      >
+        Registrarse
+      </a>
+    </div>
 
-  <a
-    href={`${appUrl}/login`}
-    class="rounded-md bg-white px-4 py-1.5 font-semibold text-brand-mint-dark transition hover:bg-teal-50"
-  >
-    Iniciar sesión
-  </a>
-</div>
-
-   <!-- menu celular -->
-   <button
-  id="menu-toggle"
-  class="relative z-50 md:hidden text-white"
-  aria-label="Abrir menú"
-  aria-expanded="false"
->
+    <!-- botón menú celular -->
+    <button
+      id="menu-toggle"
+      class={`relative z-50 md:hidden ${menuBtn}`}
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
       <svg id="icon-open" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
-      <svg id="icon-close" class="hidden h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg id="icon-close" class="hidden h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
-
-  <!-- menu movil desplegable -->
-  <div
-    id="mobile-menu"
-    class="fixed inset-0 top-0 z-40 hidden h-screen w-full -translate-y-4 flex-col items-center justify-center gap-8 bg-brand-mint-dark px-6 opacity-0 transition-all duration-300 ease-out md:hidden" >
-    <a href="/#inicio" class="text-2xl font-medium text-white">Inicio</a>
-    <a href="/product#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
-    <a href="/aboutUs#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
-<!--     
-    <a href="#contacto" class="text-2xl font-medium text-white">Contacto</a> -->
-
-    <div class="flex w-full max-w-xs flex-col gap-3 pt-4">
-      <a href={`${appUrl}/register`} class="rounded-lg border-2 border-white px-4 py-3 text-center font-semibold text-white">
-        Registrarse
-      </a>
-    
-      <a href={`${appUrl}/login`} class="rounded-lg bg-white px-4 py-3 text-center font-semibold text-brand-mint-dark">
-        Iniciar sesión
-      </a>
-   
-    </div>
-  </div>
 </header>
+
+<!-- menú móvil desplegable (fuera del header para que su "fixed" mida contra la pantalla) -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 top-0 z-40 hidden h-screen w-full -translate-y-4 flex-col items-center justify-center gap-8 bg-brand-mint-dark px-6 opacity-0 transition-all duration-300 ease-out md:hidden"
+>
+  <a href="/#inicio" class="text-2xl font-medium text-white">Inicio</a>
+  <a href="/#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
+  <a href="/aboutUs#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
+
+  <div class="flex w-full max-w-xs flex-col gap-3 pt-4">
+    <a href={`${appUrl}/register`} class="rounded-lg border-2 border-white px-4 py-3 text-center font-semibold text-white">
+      Registrarse
+    </a>
+    <a href={`${appUrl}/login`} class="rounded-lg bg-white px-4 py-3 text-center font-semibold text-brand-mint-dark">
+      Iniciar sesión
+    </a>
+  </div>
+</div>
 
 <script>
   const toggle = document.getElementById("menu-toggle");
@@ -87,14 +102,18 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
   const iconClose = document.getElementById("icon-close");
   const navbar = document.getElementById("navbar");
 
+  let menuOpen = false;
 
   const setMenu = (open: boolean) => {
+    menuOpen = open;
     iconOpen?.classList.toggle("hidden", open);
     iconClose?.classList.toggle("hidden", !open);
     toggle?.setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("overflow-hidden", open);
 
     if (open) {
+      // Con el menú abierto el header va sin fondo, para que el ícono blanco se vea
+      navbar?.setAttribute("data-scrolled", "false");
       menu?.classList.replace("hidden", "flex");
       void menu?.offsetHeight;
       menu?.classList.remove("opacity-0", "-translate-y-4");
@@ -105,41 +124,58 @@ const appUrl = import.meta.env.PUBLIC_APP_URL;
         () => menu?.classList.replace("flex", "hidden"),
         { once: true }
       );
+      updateNavbar();
     }
   };
 
   toggle?.addEventListener("click", () => setMenu(menu?.classList.contains("hidden") ?? false));
 
-
   const replayAnimation = (href: string | null) => {
-  if (!href) return;
+    if (!href) return;
 
-  const target = document.querySelector<HTMLElement>(href);
-  if (!target) return;
+    const target = document.querySelector<HTMLElement>(href);
+    if (!target) return;
 
-  const animated = target.classList.contains("animate-fade-in-up")
-    ? [target, ...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")]
-    : [...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")];
+    const animated = target.classList.contains("animate-fade-in-up")
+      ? [target, ...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")]
+      : [...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")];
 
-  animated.forEach((el) => {
-    el.classList.remove("animate-fade-in-up");
-    void el.offsetWidth;
-    el.classList.add("animate-fade-in-up");
-  });
-};
+    animated.forEach((el) => {
+      el.classList.remove("animate-fade-in-up");
+      void el.offsetWidth;
+      el.classList.add("animate-fade-in-up");
+    });
+  };
 
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  // Enlaces ancla (#x) y de la home (/#x): cierran el menú y repiten la animación
+  document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((link) => {
     link.addEventListener("click", () => {
       setMenu(false);
-      replayAnimation(link.getAttribute("href"));
+      const href = link.getAttribute("href") ?? "";
+      replayAnimation(href.replace(/^\//, "") || null);
     });
   });
 
+  // Fondo con blur: en el index cuando termina el hero; en páginas claras al bajar un poco
+  const hero = document.getElementById("inicio") ?? document.getElementById("hero-scroll");
+  const isLight = navbar?.dataset.light === "true";
   let lastY = window.scrollY;
 
-window.addEventListener("scroll", () => {
-  const y = window.scrollY;
-  navbar?.classList.toggle("-translate-y-full", y > lastY && y > 100);
-  lastY = y;
-}, { passive: true });
+  function updateNavbar() {
+    if (menuOpen) return;
+
+    const y = window.scrollY;
+    navbar?.classList.toggle("-translate-y-full", y > lastY && y > 100);
+
+    const passedHero = hero
+      ? hero.getBoundingClientRect().bottom <= (navbar?.offsetHeight ?? 64)
+      : y > 20;
+    const scrolled = isLight ? y > 20 : passedHero;
+    navbar?.setAttribute("data-scrolled", String(scrolled));
+
+    lastY = y;
+  }
+
+  window.addEventListener("scroll", updateNavbar, { passive: true });
+  updateNavbar();
 </script>

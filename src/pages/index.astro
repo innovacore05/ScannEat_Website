@@ -2,9 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
-
+import HeroScroll from "../components/HeroScroll.astro";
 import Footer from "../components/Footer.astro";
-
+import  Features  from "../components/Features.astro";
 ---
 
 <Layout
@@ -14,12 +14,19 @@ import Footer from "../components/Footer.astro";
 >
   <Navbar />
 
-  <main class="pt-16">
+  <!-- <main class="pt-16">
     <Hero />
-   
+  </main> -->
 
-  
+
+   <main>
+    <HeroScroll />
+    <section id="funcionalidades" class="scroll-mt-16">
+      <Features />
+    </section>
   </main>
 
+
+  
   <Footer />
 </Layout>

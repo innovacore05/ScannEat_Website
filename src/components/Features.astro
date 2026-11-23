@@ -1,10 +1,9 @@
 ---
-import { QrCode, Sparkles, Receipt, LayoutDashboard, LayoutGrid, Users } from 'lucide-astro';
-
 type FeatureCard = {
-  icon: typeof QrCode;
   title: string;
   description: string;
+  image: string;
+  alt: string;
 };
 
 type GuideStep = {
@@ -12,97 +11,149 @@ type GuideStep = {
   title: string;
   description: string;
 };
- 
+
 const features: FeatureCard[] = [
   {
-    icon: QrCode,
     title: "Pedidos directo desde la mesa",
     description:
-      "El cliente escanea el QR, ve el menú y confirma su pedido, sin esperar a que un mesero lo atienda.",
+      "El cliente escanea el QR, ve el menú y confirma su pedido.",
+    image: "qr.jpg",
+    alt: "Cliente escaneando el código QR de la mesa",
   },
   {
-    icon: Sparkles,
     title: "Recomendaciones con IA",
-    description: "Un chatbot sugiere platillos según el presupuesto y el tipo de comida que el cliente busca.",
+    description:
+      "Un chatbot sugiere platillos según el presupuesto del cliente.",
+    image: "ia.jpg",
+    alt: "Chat con recomendaciones de platillos",
   },
   {
-    icon: Receipt,
     title: "Facturación integrada",
-    description: "Generá la factura del pedido directamente desde el sistema, sin procesos manuales aparte.",
+    description:
+      "Generá la factura del pedido directamente desde el sistema.",
+    image: "facturacion.jpg",
+    alt: "Factura electrónica generada en pantalla",
   },
   {
-    icon: LayoutDashboard,
     title: "Panel de administración inteligente",
-    description: "Consultá reportes, identificá tus platillos más vendidos y mejor calificados, y recibí insights automáticos para tomar mejores decisiones, todo desde un solo lugar.",
+    description:
+      "Consultá reportes y recibí insights automáticos para tomar mejores decisiones.",
+    image: "panel.jpg",
+    alt: "Panel de administración con reportes de ventas",
   },
+  {
+    title: "Menú siempre actualizado",
+    description: "Cambiá precios y platillos al instante, sin reimprimir nada.",
+    image: "menu.jpg",
+    alt: "Editor del menú digital",
+  },
+  {
+    title: "Pedidos en cocina al instante",
+    description: "Cada orden llega directo a cocina y meseros, sin papelitos.",
+    image: "cocina.jpg",
+    alt: "Pantalla de cocina con pedidos entrantes",
+  },
+  {
+  title: "Agilidad de mesero",
+  description: "Comandas al instante en cocina",
+  image: "sin-app.jpg",
+  alt: "Mesero y pedido",
+},
 ];
 
-//como funciona info
+// Cómo funciona
 const guideSteps: GuideStep[] = [
   {
     number: 1,
     title: "Creá tus mesas",
-    description: "Registrá las mesas de tu restaurante en el sistema, con su número y capacidad.",
+    description:
+      "Registrá las mesas de tu restaurante en el sistema, con su número y capacidad.",
   },
   {
     number: 2,
     title: "Descargá tu QR",
-    description: "Generás un código QR único por mesa, listo para imprimir y colocar.",
+    description:
+      "Generá un código QR único por mesa, listo para imprimir y colocar.",
   },
   {
     number: 3,
-  title: "Dejá que tus clientes pidan",
-    description: "Escanean el QR, ven el menú y hacen su pedido, que llega directo a cocina y meseros.",
+    title: "Dejá que tus clientes pidan",
+    description:
+      "Escanean el QR, ven el menú y hacen su pedido, que llega directo a cocina y meseros.",
   },
   {
-  number: 4,
-  title: "Cerrá la cuenta y facturá",
-  description:
-    "Cerrá la cuenta, generá la factura y consultá la información de tus ventas del día o del mes.",
-},
+    number: 4,
+    title: "Cerrá la cuenta y facturá",
+    description:
+      "Cerrá la cuenta, generá la factura y consultá la información de tus ventas del día o del mes.",
+  },
 ];
 ---
 
-<section id="funcionalidades" aria-labelledby="features-heading" class="mx-auto max-w-7xl px-6 py-16 text-center animate-fade-in-up scroll-mt-16">
-  <div>
-    <h2 id="features-heading" class="text-3xl font-bold">Funcionalidades</h2>
-    <p class="mt-2 text-gray-600">Todo lo que necesitas para agilizar tu negocio</p>
-  </div>
+<section
+  id="funcionalidades"
+  aria-labelledby="features-heading"
+  class="relative h-[250vh]"
+>
+  <div class="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-6 pt-16 text-center">
+    <h2 id="features-heading" class="text-3xl font-bold sm:text-5xl">Funcionalidades</h2>
+    <p class="mt-2 text-gray-600">Todo lo que necesitás para agilizar tu negocio</p>
 
-  <div class="mt-12 grid grid-cols-1 divide-y divide-gray-200 border border-gray-200 sm:grid-cols-2 sm:divide-x lg:grid-cols-4">
-    {features.map(({ icon: Icon, title, description }) => (
-      <article class="flex flex-col items-center gap-3 p-8 transition-colors duration-300 hover:bg-brand-mint hover:text-white">
-        <Icon aria-hidden="true" class="h-8 w-8 text-brand-mint-darker" />
-        <h3 class="font-semibold">{title}</h3>
-        <p class="text-sm text-gray-600 ">{description}</p>
-      </article>
-    ))}
+    <div
+      id="cards"
+      class="relative mt-6 grid w-full max-w-7xl grid-cols-2 gap-3 lg:grid-cols-12 lg:gap-4"
+    >
+      {features.map(({ title, description, image, alt }, i) => (
+        <article
+          data-card
+          class:list={[
+            "group relative h-[17vh] min-h-[100px] overflow-hidden rounded-2xl bg-gradient-to-br from-brand-mint to-brand-mint-dark text-left shadow-lg will-change-transform lg:h-[30vh] lg:min-h-[190px]",
+            i < 4 ? "lg:col-span-3" : "lg:col-span-4",
+            i === features.length - 1 && "col-span-2",
+          ]}
+        >
+          <!-- Foto a card completa: si no existe, queda el degradado de fondo -->
+          <img
+            src={image}
+            alt={alt}
+            loading="lazy"
+            class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onerror="this.style.display='none'"
+          />
+
+          <!-- Degradado para que el texto se lea sobre cualquier foto -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-brand-mint-dark/90"></div>
+
+          <!-- Texto abajo -->
+          <div class="absolute inset-x-0 bottom-0 flex flex-col gap-1 p-3 text-white sm:gap-2 sm:p-5">
+            <h3 class="text-sm font-semibold leading-tight sm:text-lg">{title}</h3>
+            <p class="hidden text-sm leading-snug text-white/85 lg:block">{description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
-
-
 
 <section
   id="como-funciona"
   aria-labelledby="owner-guide-heading"
-  class="mx-auto max-w-5xl px-6 py-16 animate-fade-in-up scroll-mt-16"
+  class="mx-auto max-w-5xl scroll-mt-16 px-6 py-16 animate-fade-in-up"
 >
   <div class="mx-auto max-w-2xl text-center">
-    
+    <h2
+      id="owner-guide-heading"
+      class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+    >
+      Cómo usar Scan n' Eat en tu restaurante
+    </h2>
 
-   <h2
-  id="owner-guide-heading"
-  class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
->
-  Cómo usar Scan n' Eat en tu restaurante
-</h2>
-
-<p class="mt-4 text-lg text-gray-600">
-  De la mesa a la caja, todo tu equipo conectado en un solo sistema.
-</p>
+    <p class="mt-4 text-lg text-gray-600">
+      De la mesa a la caja, todo tu equipo conectado en un solo sistema.
+    </p>
   </div>
 
-     <!-- pasos renderizados -->
+  <!-- pasos renderizados -->
   <div class="mt-16 flex flex-col items-center gap-8">
     {guideSteps.map(({ number, title, description }) => (
       <article class="flex w-full max-w-lg flex-col gap-3 rounded-2xl border border-gray-200 p-6 text-center sm:p-8">
@@ -113,3 +164,55 @@ const guideSteps: GuideStep[] = [
     ))}
   </div>
 </section>
+
+<script>
+  const section = document.getElementById("funcionalidades");
+  const box = document.getElementById("cards");
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-card]")];
+
+  const clamp = (n: number) => Math.min(1, Math.max(0, n));
+  const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+  const startRot = [0, 7, -6, 10, -8, 5, -4]; // la primera queda derecha, las de atrás asoman torcidas
+
+  let target = 0;
+  let current = 0;
+
+  const readTarget = () => {
+    if (!section) return;
+    const total = section.offsetHeight - window.innerHeight;
+    target = clamp(-section.getBoundingClientRect().top / total);
+  };
+
+  const render = (p: number) => {
+    if (!box) return;
+    // Se abren entre el 10% y el 70% del scroll de la sección
+    const t = ease(clamp((p - 0.1) / 0.6));
+    const cx = box.clientWidth / 2;
+    const cy = box.clientHeight / 2;
+
+    cards.forEach((c, i) => {
+      const dx = cx - (c.offsetLeft + c.offsetWidth / 2);
+      const dy = cy - (c.offsetTop + c.offsetHeight / 2);
+      const k = 1 - t;
+
+      c.style.zIndex = String(cards.length - i);
+      c.style.transform =
+        `translate(${dx * k}px, ${dy * k}px) rotate(${startRot[i % startRot.length] * k}deg) scale(${0.85 + 0.15 * t})`;
+    });
+  };
+
+  // El progreso visible persigue al real para que se sienta fluido
+  const loop = () => {
+    current += (target - current) * 0.1;
+    if (Math.abs(target - current) < 0.0005) current = target;
+    render(current);
+    requestAnimationFrame(loop);
+  };
+
+  window.addEventListener("scroll", readTarget, { passive: true });
+  window.addEventListener("resize", readTarget);
+
+  readTarget();
+  current = target;
+  loop();
+</script>
