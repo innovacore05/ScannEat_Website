@@ -143,6 +143,7 @@ const getInitials = (name: string) =>
     <div
       id="team-gallery"
       class="flex h-100 w-full gap-2 sm:h-120 sm:gap-3"
+      style="touch-action: pan-y;"
     >
       {
         team.map(({ name, role, photo, vcard }, i) => (
@@ -187,21 +188,84 @@ const getInitials = (name: string) =>
 </section>
 
 <script>
+  const gallery = document.getElementById("team-gallery");
   const panels = document.querySelectorAll<HTMLElement>("#team-gallery > a");
+  const panelList = [...panels];
+
+  const activate = (activePanel: HTMLElement) =>
+    panels.forEach((panel) => {
+      panel.dataset.active = String(panel === activePanel);
+    });
 
   panels.forEach((panel) => {
-    const activate = () =>
-      panels.forEach((p) => (p.dataset.active = String(p === panel)));
-
-    panel.addEventListener("mouseenter", activate);
-    panel.addEventListener("focus", activate);
+    panel.addEventListener("mouseenter", () => activate(panel));
+    panel.addEventListener("focus", () => activate(panel));
 
     // En celular: el primer toque expande la foto, el segundo abre la vCard.
     panel.addEventListener("click", (e) => {
+      if (suppressNextClick) {
+        e.preventDefault();
+        suppressNextClick = false;
+        return;
+      }
+
       if (panel.dataset.active !== "true") {
         e.preventDefault();
-        activate();
+        activate(panel);
       }
     });
   });
+
+  let activePointerId: number | null = null;
+  let startX = 0;
+  let isDragging = false;
+  let suppressNextClick = false;
+
+  gallery?.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "touch" || !window.matchMedia("(max-width: 767px)").matches) {
+      return;
+    }
+
+    activePointerId = event.pointerId;
+    startX = event.clientX;
+    isDragging = false;
+    gallery.setPointerCapture(event.pointerId);
+  });
+
+  gallery?.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== activePointerId) return;
+
+    if (!isDragging && Math.abs(event.clientX - startX) > 10) {
+      isDragging = true;
+    }
+    if (!isDragging || !gallery || panelList.length === 0) return;
+
+    const bounds = gallery.getBoundingClientRect();
+    if (bounds.width === 0) return;
+    const position = (event.clientX - bounds.left) / bounds.width;
+    const index = Math.min(
+      panelList.length - 1,
+      Math.max(0, Math.floor(position * panelList.length)),
+    );
+    const panel = panelList[index];
+    if (panel) activate(panel);
+  });
+
+  const finishPointer = (event: PointerEvent) => {
+    if (event.pointerId !== activePointerId) return;
+
+    if (isDragging) {
+      suppressNextClick = true;
+      window.setTimeout(() => (suppressNextClick = false), 700);
+    }
+
+    if (gallery?.hasPointerCapture(event.pointerId)) {
+      gallery.releasePointerCapture(event.pointerId);
+    }
+    activePointerId = null;
+    isDragging = false;
+  };
+
+  gallery?.addEventListener("pointerup", finishPointer);
+  gallery?.addEventListener("pointercancel", finishPointer);
 </script>
