@@ -19,7 +19,7 @@ const menuBtn = onLight
   id="navbar"
   data-light={onLight}
   data-scrolled="false"
- class="group/nav fixed top-0 left-0 z-50 w-full translate-y-0 transition-all duration-300 data-[scrolled=true]:bg-white/80 data-[scrolled=true]:backdrop-blur-md"
+ class="group/nav fixed top-0 left-0 z-50 w-full translate-y-0 transition-all duration-300 data-[scrolled=true]:bg-white"
 >
  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
 
@@ -45,7 +45,7 @@ const menuBtn = onLight
       <nav class="hidden items-center gap-8 md:flex">
         <a href="/#inicio" class={`font-medium transition ${link}`}>Inicio</a>
         <a href="/#funcionalidades" class={`font-medium transition ${link}`}>Funcionalidades</a>
-        <a href="/aboutUs#nosotros" class={`font-medium transition ${link}`}>Nosotros</a>
+        <a href="/aboutUs#innovacore" class={`font-medium transition ${link}`}>Nosotros</a>
       </nav>
     </div>
 
@@ -83,7 +83,7 @@ const menuBtn = onLight
 >
   <a href="/#inicio" class="text-2xl font-medium text-white">Inicio</a>
   <a href="/#funcionalidades" class="text-2xl font-medium text-white">Funcionalidades</a>
-  <a href="/aboutUs#nosotros" class="text-2xl font-medium text-white">Nosotros</a>
+  <a href="/aboutUs#innovacore" class="text-2xl font-medium text-white">Nosotros</a>
 
   <div class="flex w-full max-w-xs flex-col gap-3 pt-4">
     <a href={`${appUrl}/register`} class="rounded-lg border-2 border-white px-4 py-3 text-center font-semibold text-white">
@@ -96,6 +96,8 @@ const menuBtn = onLight
 </div>
 
 <script>
+  import { animate } from "motion";
+
   const toggle = document.getElementById("menu-toggle");
   const menu = document.getElementById("mobile-menu");
   const iconOpen = document.getElementById("icon-open");
@@ -130,29 +132,92 @@ const menuBtn = onLight
 
   toggle?.addEventListener("click", () => setMenu(menu?.classList.contains("hidden") ?? false));
 
-  const replayAnimation = (href: string | null) => {
-    if (!href) return;
+  const replayNavFade = (target: HTMLElement) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const target = document.querySelector<HTMLElement>(href);
-    if (!target) return;
+    const items = [...target.querySelectorAll<HTMLElement>("[data-nav-fade]")];
+    if (target.matches("[data-nav-fade]")) items.unshift(target);
 
-    const animated = target.classList.contains("animate-fade-in-up")
-      ? [target, ...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")]
-      : [...target.querySelectorAll<HTMLElement>(".animate-fade-in-up")];
-
-    animated.forEach((el) => {
-      el.classList.remove("animate-fade-in-up");
-      void el.offsetWidth;
-      el.classList.add("animate-fade-in-up");
+    (items.length ? items : [target]).forEach((item, index) => {
+      animate(item, { opacity: [0, 1], y: [20, 0] }, {
+        duration: 0.65,
+        delay: index * 0.06,
+        ease: [0.22, 1, 0.36, 1],
+      });
     });
   };
 
-  // Enlaces ancla (#x) y de la home (/#x): cierran el menú y repiten la animación
-  document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((link) => {
-    link.addEventListener("click", () => {
+  // Los enlaces internos usan scroll de Motion cuando ya estamos en esa página.
+  let anchorAnimation: ReturnType<typeof animate> | undefined;
+  let anchorAnimationId = 0;
+  const cancelAnchorAnimation = () => {
+    if (!anchorAnimation) return;
+    anchorAnimationId += 1;
+    anchorAnimation.stop();
+    anchorAnimation = undefined;
+    window.dispatchEvent(new Event("motion:anchor-scroll-end"));
+  };
+
+  window.addEventListener("wheel", cancelAnchorAnimation, { passive: true });
+  window.addEventListener("touchstart", cancelAnchorAnimation, { passive: true });
+  window.addEventListener("keydown", (event) => {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) {
+      cancelAnchorAnimation();
+    }
+  });
+
+  document.querySelectorAll<HTMLAnchorElement>('a[href*="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        (link.target && link.target !== "_self")
+      ) {
+        return;
+      }
+
       setMenu(false);
-      const href = link.getAttribute("href") ?? "";
-      replayAnimation(href.replace(/^\//, "") || null);
+
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) {
+        return;
+      }
+
+      const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!target) return;
+
+      event.preventDefault();
+      cancelAnchorAnimation();
+      const currentAnimationId = ++anchorAnimationId;
+
+      const targetY = Math.max(
+        0,
+        window.scrollY + target.getBoundingClientRect().top - (navbar?.offsetHeight ?? 0),
+      );
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        window.scrollTo(0, targetY);
+      } else {
+        window.dispatchEvent(new Event("motion:anchor-scroll-start"));
+        anchorAnimation = animate(window.scrollY, targetY, {
+          duration: 0.95,
+          ease: [0.22, 1, 0.36, 1],
+          onUpdate: (nextY) => window.scrollTo(0, nextY),
+        });
+        void anchorAnimation.then(() => {
+          if (currentAnimationId === anchorAnimationId) {
+            anchorAnimation = undefined;
+            window.dispatchEvent(new Event("motion:anchor-scroll-end"));
+            replayNavFade(target);
+          }
+        });
+      }
+
+      window.history.pushState({}, "", `${url.pathname}${url.search}${url.hash}`);
     });
   });
 

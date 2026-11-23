@@ -26,6 +26,47 @@ import WhatsAppBubble from "../components/WhatsAppBubble.astro";
   <body>
     <slot />
     <WhatsAppBubble/>
+    <script>
+      import { animate, scroll } from "motion";
 
+      const main = document.querySelector("main");
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      const anchorTarget = window.location.hash
+        ? document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+        : null;
+
+      const animateNavTarget = (target: HTMLElement) => {
+        const items = [...target.querySelectorAll<HTMLElement>("[data-nav-fade]")];
+        if (target.matches("[data-nav-fade]")) items.unshift(target);
+
+        (items.length ? items : [target]).forEach((item, index) => {
+          animate(item, { opacity: [0, 1], y: [20, 0] }, {
+            duration: 0.65,
+            delay: index * 0.06,
+            ease: [0.22, 1, 0.36, 1],
+          });
+        });
+      };
+
+      if (anchorTarget && !prefersReducedMotion) {
+        animateNavTarget(anchorTarget);
+      } else if (main && !prefersReducedMotion) {
+        animate(main, { opacity: [0, 1] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      }
+
+      const scrollFadeItems = document.querySelectorAll<HTMLElement>("[data-scroll-fade]");
+
+      if (!prefersReducedMotion) {
+        scrollFadeItems.forEach((item) => {
+          scroll(animate(item, { opacity: [0, 1], y: [32, 0] }), {
+            target: item,
+            offset: ["start 100%", "start 45%"],
+          });
+        });
+      }
+    </script>
   </body>
 </html>

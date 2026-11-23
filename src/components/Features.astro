@@ -17,46 +17,46 @@ const features: FeatureCard[] = [
     title: "Pedidos directo desde la mesa",
     description:
       "El cliente escanea el QR, ve el menú y confirma su pedido.",
-    image: "qr.jpg",
+    image: "qr.webp",
     alt: "Cliente escaneando el código QR de la mesa",
   },
   {
     title: "Recomendaciones con IA",
     description:
       "Un chatbot sugiere platillos según el presupuesto del cliente.",
-    image: "ia.jpg",
+    image: "ia.webp",
     alt: "Chat con recomendaciones de platillos",
   },
   {
     title: "Facturación integrada",
     description:
       "Generá la factura del pedido directamente desde el sistema.",
-    image: "facturacion.jpg",
+    image: "facturacion.webp",
     alt: "Factura electrónica generada en pantalla",
   },
   {
     title: "Panel de administración inteligente",
     description:
       "Consultá reportes y recibí insights automáticos para tomar mejores decisiones.",
-    image: "panel.jpg",
+    image: "panel-card.webp",
     alt: "Panel de administración con reportes de ventas",
   },
   {
     title: "Menú siempre actualizado",
     description: "Cambiá precios y platillos al instante, sin reimprimir nada.",
-    image: "menu.jpg",
+    image: "menu-card.webp",
     alt: "Editor del menú digital",
   },
   {
     title: "Pedidos en cocina al instante",
     description: "Cada orden llega directo a cocina y meseros, sin papelitos.",
-    image: "cocina.jpg",
+    image: "cocina-card.webp",
     alt: "Pantalla de cocina con pedidos entrantes",
   },
   {
   title: "Agilidad de mesero",
   description: "Comandas al instante en cocina",
-  image: "sin-app.jpg",
+  image: "mesero-card.webp",
   alt: "Mesero y pedido",
 },
 ];
@@ -93,15 +93,16 @@ const guideSteps: GuideStep[] = [
 <section
   id="funcionalidades"
   aria-labelledby="features-heading"
-  class="relative h-[250vh]"
+  class="relative h-[200vh] scroll-mt-16"
 >
   <div class="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-6 pt-16 text-center">
-    <h2 id="features-heading" class="text-3xl font-bold sm:text-5xl">Funcionalidades</h2>
-    <p class="mt-2 text-gray-600">Todo lo que necesitás para agilizar tu negocio</p>
+    <h2 id="features-heading" class="text-3xl font-bold sm:text-5xl" data-nav-fade>Funcionalidades</h2>
+    <p class="mt-2 text-gray-600" data-nav-fade>Todo lo que necesitás para agilizar tu negocio</p>
 
     <div
       id="cards"
       class="relative mt-6 grid w-full max-w-7xl grid-cols-2 gap-3 lg:grid-cols-12 lg:gap-4"
+      data-nav-fade
     >
       {features.map(({ title, description, image, alt }, i) => (
         <article
@@ -138,9 +139,9 @@ const guideSteps: GuideStep[] = [
 <section
   id="como-funciona"
   aria-labelledby="owner-guide-heading"
-  class="mx-auto max-w-5xl scroll-mt-16 px-6 py-16 animate-fade-in-up"
+  class="mx-auto max-w-6xl scroll-mt-16 px-6 py-24"
 >
-  <div class="mx-auto max-w-2xl text-center">
+  <div class="mx-auto max-w-2xl text-center" data-scroll-fade data-nav-fade>
     <h2
       id="owner-guide-heading"
       class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
@@ -153,66 +154,88 @@ const guideSteps: GuideStep[] = [
     </p>
   </div>
 
-  <!-- pasos renderizados -->
-  <div class="mt-16 flex flex-col items-center gap-8">
+  <!-- pasos -->
+  <ol class="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
     {guideSteps.map(({ number, title, description }) => (
-      <article class="flex w-full max-w-lg flex-col gap-3 rounded-2xl border border-gray-200 p-6 text-center sm:p-8">
-        <span class="text-sm font-bold text-brand-mint-dark">PASO {number}</span>
+      <li class="group flex flex-col gap-3 text-center sm:text-left" data-scroll-fade data-nav-fade>
+        <span class="text-7xl font-extrabold leading-none text-brand-mint/30 transition-colors duration-300 group-hover:text-brand-mint-dark">
+          {String(number).padStart(2, "0")}
+        </span>
         <h3 class="text-xl font-semibold text-gray-900">{title}</h3>
         <p class="text-base leading-7 text-gray-600">{description}</p>
-      </article>
+      </li>
     ))}
-  </div>
+  </ol>
 </section>
 
 <script>
-  const section = document.getElementById("funcionalidades");
+  import { scroll } from "motion";
+
   const box = document.getElementById("cards");
+  const section = box?.closest<HTMLElement>("section") ?? null;
   const cards = [...document.querySelectorAll<HTMLElement>("[data-card]")];
 
   const clamp = (n: number) => Math.min(1, Math.max(0, n));
   const ease = (t: number) => 1 - Math.pow(1 - t, 3);
   const startRot = [0, 7, -6, 10, -8, 5, -4]; // la primera queda derecha, las de atrás asoman torcidas
 
-  let target = 0;
-  let current = 0;
-
-  const readTarget = () => {
-    if (!section) return;
-    const total = section.offsetHeight - window.innerHeight;
-    target = clamp(-section.getBoundingClientRect().top / total);
-  };
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  let progress = 0;
+  let cardPositions: { dx: number; dy: number }[] = [];
 
   const render = (p: number) => {
     if (!box) return;
-    // Se abren entre el 10% y el 70% del scroll de la sección
-    const t = ease(clamp((p - 0.1) / 0.6));
-    const cx = box.clientWidth / 2;
-    const cy = box.clientHeight / 2;
+    progress = p;
+    // Se despliegan a lo largo de todo el recorrido fijado de la sección.
+    const t = ease(clamp(p));
 
     cards.forEach((c, i) => {
-      const dx = cx - (c.offsetLeft + c.offsetWidth / 2);
-      const dy = cy - (c.offsetTop + c.offsetHeight / 2);
+      const position = cardPositions[i];
+      if (!position) return;
       const k = 1 - t;
 
       c.style.zIndex = String(cards.length - i);
       c.style.transform =
-        `translate(${dx * k}px, ${dy * k}px) rotate(${startRot[i % startRot.length] * k}deg) scale(${0.85 + 0.15 * t})`;
+        `translate(${position.dx * k}px, ${position.dy * k}px) rotate(${startRot[i % startRot.length] * k}deg) scale(${0.85 + 0.15 * t})`;
     });
   };
 
-  // El progreso visible persigue al real para que se sienta fluido
-  const loop = () => {
-    current += (target - current) * 0.1;
-    if (Math.abs(target - current) < 0.0005) current = target;
-    render(current);
-    requestAnimationFrame(loop);
+  const measureCards = () => {
+    if (!box) return;
+
+    const cx = box.clientWidth / 2;
+    const cy = box.clientHeight / 2;
+
+    cardPositions = cards.map((card) => ({
+      dx: cx - (card.offsetLeft + card.offsetWidth / 2),
+      dy: cy - (card.offsetTop + card.offsetHeight / 2),
+    }));
+
+    render(progress);
   };
 
-  window.addEventListener("scroll", readTarget, { passive: true });
-  window.addEventListener("resize", readTarget);
+  measureCards();
+  window.addEventListener("resize", measureCards);
 
-  readTarget();
-  current = target;
-  loop();
+  if (prefersReducedMotion) {
+    if (section) {
+      section.style.height = "auto";
+
+      const stickyContent = section.firstElementChild as HTMLElement | null;
+      if (stickyContent) {
+        stickyContent.style.position = "relative";
+        stickyContent.style.height = "auto";
+        stickyContent.style.minHeight = "100vh";
+      }
+    }
+    render(1);
+  } else if (section) {
+    scroll((nextProgress) => render(nextProgress), {
+      target: section,
+      offset: ["start start", "end end"],
+    });
+    render(0);
+  }
 </script>
